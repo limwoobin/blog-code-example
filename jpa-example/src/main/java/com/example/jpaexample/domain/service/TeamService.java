@@ -28,6 +28,24 @@ public class TeamService {
         return teamResponse;
     }
 
+
+    @Transactional
+    public Team findTeam(Long id) {
+        return teamRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+    }
+
+    @Transactional
+    public Team cashTest(Long id) {
+        Team team1 = teamRepository.findById(id)
+                .orElseThrow(RuntimeException::new);    // (2)
+
+        Team team2 = teamRepository.findById(id)
+                .orElseThrow(RuntimeException::new);    // (2)
+
+        return team1;
+    }
+
     @Transactional
     public Team detachTest(Long id) {
         Team team = teamRepository.findById(id).get();
