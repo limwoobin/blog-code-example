@@ -25,6 +25,7 @@ public class TeamController {
         teamDto.setName("test");
 
         teamService.save(teamDto);
+        log.info("### controller end");
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -43,6 +44,17 @@ public class TeamController {
 //        TeamDto teamDto = new TeamDto();
 //        teamDto.setName("test");
         teamService.cashTest(1L);
+
+        return "ok";
+    }
+
+    @GetMapping("/find/cash/v2")
+    public String cashTest2() {
+
+        TeamDto teamDto = new TeamDto();
+        teamDto.setName("test");
+//        teamService.cashTest2(teamDto);
+        teamService.cashTest3(1L);
 
         return "ok";
     }
