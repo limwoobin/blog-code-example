@@ -4,9 +4,7 @@ import com.example.jpaexample.domain.entity.Member;
 import com.example.jpaexample.domain.entity.Team;
 import com.example.jpaexample.domain.repository.MemberRepository;
 import com.example.jpaexample.domain.repository.TeamRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,38 +25,53 @@ public class TeamDomainTest {
     @Autowired
     private EntityManager entityManager;
 
-//    @BeforeEach
-//    public void init() {
-//        Team team = new Team("test");
-//        teamRepository.save(team);
-//    }
 
-    @Test
-    @Transactional
-    public void 동일성_테스트() {
-        Team team1 = teamRepository.findById(1L).get();
-        Team team2 = teamRepository.findById(1L).get();
+    @Nested
+    class 동일성_테스트_클래스 {
 
-        boolean val = team1 == team2;
-        System.out.println("### 동일성 테스트 결과 : " + val);
-        assertThat(val).isEqualTo(true);
+        public Team init() {
+            Team team = new Team("test");
+            teamRepository.save(team);
+
+            entityManager.clear();
+            entityManager.close();
+
+            return team;
+        }
+
+        @Test
+        @Transactional
+        public void 동일성_테스트() {
+            Long id = this.init().getId();
+
+            Team team1 = teamRepository.findById(id).get();
+            Team team2 = teamRepository.findById(id).get();
+
+            boolean val = team1 == team2;
+            System.out.println("### 동일성 테스트 결과 : " + val);
+            assertThat(val).isEqualTo(true);
+
+            teamRepository.deleteAll();
+        }
+
+        @Test
+        public void 동일성_테스트_v2() {
+            Long id = this.init().getId();
+
+            Team team1 = teamRepository.findById(id).get();
+            Team team2 = teamRepository.findById(id).get();
+
+            boolean val = team1 == team2;
+            System.out.println("### 동일성 테스트 결과 : " + val);
+            assertThat(val).isEqualTo(false);
+        }
     }
 
-    @Test
-    public void 동일성_테스트_v2() {
-        Team team1 = teamRepository.findById(1L).get();
-        Team team2 = teamRepository.findById(1L).get();
-
-        boolean val = team1 == team2;
-        System.out.println("### 동일성 테스트 결과 : " + val);
-        assertThat(val).isEqualTo(true);
-    }
 
     @Nested
     class 지연_로딩_테스트_클래스 {
 
-        @BeforeEach
-        void init() {
+        Team init() {
             Team team = new Team("test");
             Member member = new Member("member1");
             Member member2 = new Member( "member2");
@@ -72,12 +85,16 @@ public class TeamDomainTest {
             entityManager.flush();
             entityManager.clear();
             entityManager.close();
+
+            return team;
         }
 
         @Test
         @Transactional
         public void 연관관계_객체가_프록시객체라면_성공() {
-            Team team = teamRepository.findById(1L)
+            Long id = init().getId();
+
+            Team team = teamRepository.findById(id)
                     .orElseThrow(RuntimeException::new);
 
             boolean isLoad = entityManager.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(team.getMembers());
@@ -87,7 +104,9 @@ public class TeamDomainTest {
         @Test
         @Transactional
         public void 연관관계_객체가_초기화_되었다면_성공() {
-            Team team = teamRepository.findById(1L)
+            Long id = init().getId();
+
+            Team team = teamRepository.findById(id)
                     .orElseThrow(RuntimeException::new);
 
             System.out.println(team.getMembers().size());
