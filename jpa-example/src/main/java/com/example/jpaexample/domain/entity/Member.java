@@ -6,16 +6,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Team {
-    public Team(String name) {
+public class Member {
+    public Member(String name) {
         this.name = name;
     }
 
@@ -23,13 +21,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "team_id")
+    private Long teamId;
+
     private String name;
-
-    @OneToMany(fetch = FetchType.LAZY , cascade = CascadeType.ALL)
-    @JoinColumn(name = "team_id")
-    private List<Member> members = new ArrayList<>();
-
-    public void addMembers(Member member) {
-        this.members.add(member);
-    }
 }
