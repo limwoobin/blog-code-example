@@ -7,6 +7,7 @@ import com.example.jpaexample.domain.repository.TeamRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -113,6 +114,63 @@ public class TeamDomainTest {
 
             boolean isLoad = entityManager.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(team.getMembers());
             assertThat(isLoad).isEqualTo(true);
+        }
+    }
+
+    @Nested
+    class 쓰기_지연_테스트_클래스 {
+
+        @BeforeEach
+        void init2() {
+            teamRepository.deleteAll();
+        }
+
+        Team init() {
+            Team team = new Team("test");
+            teamRepository.save(team);
+
+            entityManager.clear();
+            entityManager.close();
+
+            return team;
+        }
+
+        @Test
+        @Transactional
+        @Rollback(value = false)
+        public void 쓰기지연_insert_test() {
+            System.out.println("### INSERT BEGIN");
+            Team team = new Team("test");
+            Team team2 = new Team("test2");
+            teamRepository.save(team);
+            teamRepository.save(team2);
+            System.out.println("### INSERT END");
+        }
+
+        @Test
+        @Transactional
+        @Rollback(value = false)
+        public void 쓰기지연_update_test() {
+            Long id = init().getId();
+
+            Team team = teamRepository.findById(id).get();
+
+            System.out.println("### UPDATE BEGIN");
+            team.setName("CHANGE");
+            System.out.println("### UPDATE END");
+        }
+
+        @Test
+        @Transactional
+        @Rollback(value = false)
+        public void 쓰기지연_delete_test() {
+            Long id = init().getId();
+
+            Team team = teamRepository.findById(id).get();
+
+            System.out.println("### DELETE BEGIN");
+            teamRepository.delete(team);
+            System.out.println("### DELETE END");
         }
     }
 }
