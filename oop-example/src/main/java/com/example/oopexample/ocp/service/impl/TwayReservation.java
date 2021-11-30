@@ -6,8 +6,7 @@ import com.example.oopexample.ocp.service.AirlineReservation;
 import org.springframework.stereotype.Component;
 
 @Component
-public class KoreanAirReservation implements AirlineReservation {
-
+public class TwayReservation implements AirlineReservation {
     @Override
     public ReservationDTO reserve(ReservationRequest request) {
         return null;

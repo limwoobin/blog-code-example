@@ -1,6 +1,5 @@
 package com.example.oopexample.ocp.controller;
 
-import com.example.oopexample.ocp.AirLineReservationFactory;
 import com.example.oopexample.ocp.dto.ReservationDTO;
 import com.example.oopexample.ocp.dto.ReservationRequest;
 import com.example.oopexample.ocp.service.ReservationService;
@@ -15,18 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/reservation")
 public class ReservationController {
-    private final AirLineReservationFactory airLineReservationFactory;
+    private final ReservationService reservationService;
 
     @PostMapping("/")
     public ResponseEntity<ReservationDTO> getReservation(ReservationRequest request) {
-        ReservationService reservationService = airLineReservationFactory.getXX(request.getAirlineType());
         ReservationDTO reservationDTO = reservationService.reservation(request);
         return new ResponseEntity<>(reservationDTO , HttpStatus.OK);
     }
 
     @PostMapping("/v2")
     public ResponseEntity<ReservationDTO> getReservation2(ReservationRequest request) {
-        ReservationService reservationService = airLineReservationFactory.getXX(request.getAirlineType());
         ReservationDTO reservationDTO = reservationService.reservation(request);
         return new ResponseEntity<>(reservationDTO , HttpStatus.OK);
     }

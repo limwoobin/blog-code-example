@@ -2,16 +2,19 @@ package com.example.oopexample.ocp.service.impl;
 
 import com.example.oopexample.ocp.dto.ReservationDTO;
 import com.example.oopexample.ocp.dto.ReservationRequest;
-import com.example.oopexample.ocp.service.ReservationService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
+import com.example.oopexample.ocp.service.AirlineReservation;
+import org.springframework.stereotype.Component;
 
-@Service
-@RequiredArgsConstructor
-public class AsianaReservation implements ReservationService {
+@Component
+public class AsianaReservation implements AirlineReservation {
 
     @Override
-    public ReservationDTO reservation(ReservationRequest request) {
+    public ReservationDTO reserve(ReservationRequest request) {
+        return null;
+    }
+
+    @Override
+    public ReservationDTO cancel(ReservationRequest request) {
         return null;
     }
 }
