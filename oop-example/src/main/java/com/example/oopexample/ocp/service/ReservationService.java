@@ -1,6 +1,5 @@
 package com.example.oopexample.ocp.service;
 
-import com.example.oopexample.ocp.AirLineReservationFactory;
 import com.example.oopexample.ocp.dto.ReservationDTO;
 import com.example.oopexample.ocp.dto.ReservationRequest;
 import lombok.RequiredArgsConstructor;

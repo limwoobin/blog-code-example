@@ -1,5 +1,6 @@
-package com.example.oopexample.ocp;
+package com.example.oopexample.ocp.service;
 
+import com.example.oopexample.ocp.AirlineType;
 import com.example.oopexample.ocp.service.AirlineReservation;
 import com.example.oopexample.ocp.service.ReservationService;
 import com.example.oopexample.ocp.service.impl.AirSeoulReservation;
