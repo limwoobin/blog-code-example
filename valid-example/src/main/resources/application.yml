@@ -2,5 +2,17 @@ server:
   port: 8080
 
 spring:
-  profiles:
-    active: local
+  h2:
+    console:
+      enabled: true
+      path: /test_db
+  datasource:
+    hikari:
+      driver-class-name: org.h2.Driver
+      username: test
+      password: 1234
+      jdbc-url: jdbc:h2:mem:testdb
+  jpa:
+    show_sql: true
+    hibernate:
+      ddl-auto: create
