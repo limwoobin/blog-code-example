@@ -21,6 +21,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping(value = "")
+    public ResponseEntity createForPost(@Valid @RequestBody UserRequest userRequest) {
+
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
+
 //    @GetMapping(value = "")
 //    public ResponseEntity create(@Valid UserRequest userRequest , BindingResult bindingResult) {
 //        if (bindingResult.hasErrors()) {
