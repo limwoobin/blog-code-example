@@ -7,7 +7,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -17,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
+@Import(HttpEncodingAutoConfiguration.class)
 public class ValidTest {
     @Autowired
     MockMvc mockMvc;
@@ -112,15 +115,14 @@ public class ValidTest {
         static final String EXPECTED_EMAIL_ERR_MESSAGE = "이메일 형식이 맞지 않습니다.";
 
         @Test
-        @DisplayName("Valid 조건에 맞지 않는 파라미터를 Get으로 넘기면 실패하고 에러메시지가 찍혀야한다")
-        void validTest_get() throws Exception {
+        @DisplayName("Valid 조건에 맞지 않는 파라미터를 Get으로 넘기면 status 400, 에러메시지를 응답받아야 한다")
+        void validTest_get_fail() throws Exception {
             // given
             UserRequest userRequest = UserRequest.builder()
                     .email("drogba02")
                     .name("woobeen")
                     .age(29)
                     .build();
-
 
             // then
             mockMvc.perform(get("/user/v2")
@@ -129,6 +131,67 @@ public class ValidTest {
                     .param("age" , Integer.toString(userRequest.getAge())))
                     .andExpect(status().isBadRequest())
                     .andExpect(content().string(EXPECTED_EMAIL_ERR_MESSAGE));
+        }
+
+        @Test
+        @DisplayName("Valid 조건에 맞는 파라미터를 Get으로 넘기면 성공해야 한다")
+        void validTest_get_ok() throws Exception {
+            // given
+            UserRequest userRequest = UserRequest.builder()
+                    .email("drogba02@naver.com")
+                    .name("woobeen")
+                    .age(29)
+                    .build();
+
+            // then
+            mockMvc.perform(get("/user/v2")
+                    .param("email" , userRequest.getEmail())
+                    .param("name" , userRequest.getName())
+                    .param("age" , Integer.toString(userRequest.getAge())))
+                    .andExpect(status().isCreated())
+                    .andExpect(content().string(""));
+        }
+
+        @Test
+        @DisplayName("Valid 조건에 맞지 않는 파라미터를 Post로 넘기면 status 400, 에러메시지를 응답받아야 한다")
+        void validTest_post_fail() throws Exception {
+            // given
+            UserRequest userRequest = UserRequest.builder()
+                    .email("drogba02")
+                    .name("woobeen")
+                    .age(29)
+                    .build();
+
+            String jsonData = objectMapper.writeValueAsString(userRequest);
+
+            // then
+            mockMvc.perform(post("/user/v2")
+                    .content(jsonData)
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().string(EXPECTED_EMAIL_ERR_MESSAGE));
+        }
+
+        @Test
+        @DisplayName("Valid 조건에 맞는 파라미터를 Post로 넘기면 성공해야 한다")
+        void validTest_post_ok() throws Exception {
+            // given
+            UserRequest userRequest = UserRequest.builder()
+                    .email("drogba02@naver.com")
+                    .name("woobeen")
+                    .age(29)
+                    .build();
+
+            String jsonData = objectMapper.writeValueAsString(userRequest);
+
+            // then
+            mockMvc.perform(post("/user/v2")
+                    .content(jsonData)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isCreated())
+                    .andExpect(content().string(""));
         }
     }
 }

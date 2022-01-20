@@ -46,7 +46,10 @@ public class UserController {
     @PostMapping(value = "/v2")
     public ResponseEntity createForPost(@Valid @RequestBody UserRequest userRequest , BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return new ResponseEntity<>(bindingResult.getAllErrors() , HttpStatus.BAD_REQUEST);
+            List<FieldError> list = bindingResult.getFieldErrors();
+            for(FieldError error : list) {
+                return new ResponseEntity<>(error.getDefaultMessage() , HttpStatus.BAD_REQUEST);
+            }
         }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
