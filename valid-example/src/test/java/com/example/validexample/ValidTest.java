@@ -2,6 +2,7 @@ package com.example.validexample;
 
 import com.example.validexample.user.controller.UserController;
 import com.example.validexample.user.domain.UserRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -12,9 +13,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -192,6 +195,33 @@ public class ValidTest {
                     .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isCreated())
                     .andExpect(content().string(""));
+        }
+    }
+
+    @Nested
+    @DisplayName("Valid Advice 테스트")
+    class ValidAdviceTest {
+
+        @Test
+        @DisplayName("Valid 예외가 Advice 에서 정상적으로 처리되어야 한다")
+        void advice_post_test() throws Exception {
+            // given
+            UserRequest userRequest = UserRequest.builder()
+                    .email("drogba02")
+                    .name("woobeen")
+                    .age(18)
+                    .build();
+
+            String jsonData = objectMapper.writeValueAsString(userRequest);
+
+            // then
+            mockMvc.perform(post("/user")
+                    .content(jsonData)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON))
+                    .andExpect(status().isBadRequest())
+                    .andDo(print());
+
         }
     }
 }

@@ -54,9 +54,4 @@ public class UserController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<UserDTO> getUser(@Valid @PathVariable Long id) {
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 }
