@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+
 @RestControllerAdvice
 @Slf4j
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
@@ -46,6 +49,18 @@ public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleBindException(BindException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        return super.handleBindException(ex, headers, status, request);
+        BindingResult result = ex.getBindingResult();
+        StringBuilder errMessage = new StringBuilder();
+
+        for (FieldError error : result.getFieldErrors()) {
+            errMessage.append("[")
+                    .append(error.getField())
+                    .append("] ")
+                    .append(":")
+                    .append(error.getDefaultMessage());
+        }
+
+        log.info("errMsg ### {}" , errMessage);
+        return new ResponseEntity<>(errMessage , HttpStatus.BAD_REQUEST);
     }
 }

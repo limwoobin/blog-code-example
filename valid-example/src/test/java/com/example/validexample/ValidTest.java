@@ -15,6 +15,12 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.ArgumentMatchers.contains;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -115,7 +121,7 @@ public class ValidTest {
     @DisplayName("BindResult Valid 테스트")
     class BindResultValidTest {
 
-        static final String EXPECTED_EMAIL_ERR_MESSAGE = "이메일 형식이 맞지 않습니다.";
+        static final String EMAIL_EXCEPTION_MESSAGE = "이메일 형식이 맞지 않습니다.";
 
         @Test
         @DisplayName("Valid 조건에 맞지 않는 파라미터를 Get으로 넘기면 status 400, 에러메시지를 응답받아야 한다")
@@ -133,7 +139,7 @@ public class ValidTest {
                     .param("name" , userRequest.getName())
                     .param("age" , Integer.toString(userRequest.getAge())))
                     .andExpect(status().isBadRequest())
-                    .andExpect(content().string(EXPECTED_EMAIL_ERR_MESSAGE));
+                    .andExpect(content().string(EMAIL_EXCEPTION_MESSAGE));
         }
 
         @Test
@@ -173,7 +179,7 @@ public class ValidTest {
                     .contentType(MediaType.APPLICATION_JSON_VALUE)
                     .accept(MediaType.APPLICATION_JSON_VALUE))
                     .andExpect(status().isBadRequest())
-                    .andExpect(content().string(EXPECTED_EMAIL_ERR_MESSAGE));
+                    .andExpect(content().string(EMAIL_EXCEPTION_MESSAGE));
         }
 
         @Test
@@ -202,8 +208,11 @@ public class ValidTest {
     @DisplayName("Valid Advice 테스트")
     class ValidAdviceTest {
 
+        static final String EMAIL_EXCEPTION_MESSAGE = "이메일 형식이 맞지 않습니다.";
+        static final String AGE_EXCEPTION_MESSAGE = "나이는 20~100세 사이의 사용자만 가입이 가능합니다.";
+
         @Test
-        @DisplayName("Valid 예외가 Advice 에서 정상적으로 처리되어야 한다")
+        @DisplayName("PostMapping시 Valid 예외가 Advice 에서 정상적으로 처리되어야 한다")
         void advice_post_test() throws Exception {
             // given
             UserRequest userRequest = UserRequest.builder()
@@ -220,8 +229,30 @@ public class ValidTest {
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON))
                     .andExpect(status().isBadRequest())
+                    .andExpect(content().string(containsString(EMAIL_EXCEPTION_MESSAGE)))
+                    .andExpect(content().string(containsString(AGE_EXCEPTION_MESSAGE)))
                     .andDo(print());
+        }
 
+        @Test
+        @DisplayName("GetMapping시 Valid 예외가 Advice 에서 정상적으로 처리되어야 한다")
+        void advice_post_get() throws Exception {
+            // given
+            UserRequest userRequest = UserRequest.builder()
+                    .email("drogba02")
+                    .name("woobeen")
+                    .age(18)
+                    .build();
+
+            // then
+            mockMvc.perform(get("/user")
+                    .param("email" , userRequest.getEmail())
+                    .param("name" , userRequest.getName())
+                    .param("age" , Integer.toString(userRequest.getAge())))
+                    .andExpect(status().isBadRequest())
+                    .andExpect(content().string(containsString(EMAIL_EXCEPTION_MESSAGE)))
+                    .andExpect(content().string(containsString(AGE_EXCEPTION_MESSAGE)))
+                    .andDo(print());
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.example.validexample.user.controller;
 
-import com.example.validexample.user.domain.UserDTO;
 import com.example.validexample.user.domain.UserRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,9 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import java.util.List;
 
 @RestController
@@ -53,5 +54,11 @@ public class UserController {
         }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping(value = "/{age}")
+    public ResponseEntity<Integer> getUserId(@PathVariable("age") @Min(5) int age) {
+
+        return new ResponseEntity<>(age , HttpStatus.OK);
     }
 }
