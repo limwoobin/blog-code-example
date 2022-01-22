@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
-
 @RestControllerAdvice
 @Slf4j
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
