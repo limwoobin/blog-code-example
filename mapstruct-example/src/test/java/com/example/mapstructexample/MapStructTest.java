@@ -1,6 +1,7 @@
 package com.example.mapstructexample;
 
 import com.example.mapstructexample.application.controller.UserDTO;
+import com.example.mapstructexample.application.domain.AddressDTO;
 import com.example.mapstructexample.application.domain.User;
 import com.example.mapstructexample.application.mapper.UserMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -34,6 +35,37 @@ public class MapStructTest {
         assertThat(userDTO.getAge()).isEqualTo(테스트_유저.getAge());
         assertThat(userDTO.getAddress()).isNull();
     }
+
+    @DisplayName("DTO 로 매핑시 name 은 무시되어야 한다")
+    @Test
+    void mapper_test_3() {
+        UserDTO userDTO = userMapper.toUserDTO_v2(테스트_유저);
+
+        assertThat(userDTO.getId()).isEqualTo(테스트_유저.getId());
+        assertThat(userDTO.getAge()).isEqualTo(테스트_유저.getAge());
+        assertThat(userDTO.getName()).isNull();
+    }
+
+    @DisplayName("DTO 매핑시 Entity의 name 이 DTO의 address 로 매핑되어야 한다")
+    @Test
+    void mapper_test_4() {
+        UserDTO userDTO = userMapper.toUserDTO_v3(테스트_유저);
+
+        assertThat(userDTO.getId()).isEqualTo(테스트_유저.getId());
+        assertThat(userDTO.getAddress()).isEqualTo(테스트_유저.getName());
+    }
+
+    @DisplayName("Entity , String 을 전달하면 DTO에 병합되어야 한다")
+    @Test
+    void mapper_test_5() {
+        String 테스트_주소 = "test_address";
+        UserDTO userDTO = userMapper.toUserDTO_v4(테스트_유저 , 테스트_주소);
+
+        assertThat(userDTO.getId()).isEqualTo(테스트_유저.getId());
+        assertThat(userDTO.getName()).isEqualTo(테스트_유저.getName());
+        assertThat(userDTO.getAge()).isEqualTo(테스트_유저.getAge());
+        assertThat(userDTO.getAddress()).isEqualTo(테스트_주소);
+    }
 }
 
 final class MapStructTestDomain {
@@ -43,5 +75,9 @@ final class MapStructTestDomain {
     static final UserDTO 테스트_DTO = UserDTO.builder()
             .name("테스트_DTO")
             .age(15)
+            .build();
+
+    static final AddressDTO 테스트_주소_DTO = AddressDTO.builder()
+            .address("test_address")
             .build();
 }
