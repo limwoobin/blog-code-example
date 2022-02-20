@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
-//    private UserMapper userMapper = UserMapper.INSTANCE;
-    private final UserMapper userMapper = Mappers.getMapper(UserMapper.class);
+    private UserMapper userMapper = UserMapper.INSTANCE;
 
     public UserDTO create(UserDTO userDTO) {
-        User user = userMapper.toUser(userDTO);
-        UserDTO userDTO1 = userMapper.toUserDTO(userRepository.save(user));
-        return userDTO1;
+//        User user = userMapper.toUser(userDTO);
+//        UserDTO userDTO1 = userMapper.toUserDTO(userRepository.save(user));
+//        return userDTO1;
+        return null;
     }
 }

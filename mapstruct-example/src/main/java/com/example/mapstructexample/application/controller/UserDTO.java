@@ -15,4 +15,6 @@ public class UserDTO {
     private int age;
 
     private String address;
+
+    private AddressDTO addressDTO;
 }

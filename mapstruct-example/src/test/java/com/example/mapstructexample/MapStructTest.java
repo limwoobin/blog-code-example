@@ -1,7 +1,7 @@
 package com.example.mapstructexample;
 
+import com.example.mapstructexample.application.controller.AddressDTO;
 import com.example.mapstructexample.application.controller.UserDTO;
-import com.example.mapstructexample.application.domain.AddressDTO;
 import com.example.mapstructexample.application.domain.User;
 import com.example.mapstructexample.application.mapper.UserMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -78,6 +78,6 @@ final class MapStructTestDomain {
             .build();
 
     static final AddressDTO 테스트_주소_DTO = AddressDTO.builder()
-            .address("test_address")
+            .myAddress("test_address")
             .build();
 }

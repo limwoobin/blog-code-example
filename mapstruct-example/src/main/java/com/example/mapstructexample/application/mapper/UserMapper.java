@@ -1,7 +1,7 @@
 package com.example.mapstructexample.application.mapper;
 
 import com.example.mapstructexample.application.controller.UserDTO;
-import com.example.mapstructexample.application.domain.AddressDTO;
+import com.example.mapstructexample.application.domain.Address;
 import com.example.mapstructexample.application.domain.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -28,9 +28,6 @@ public interface UserMapper {
 
     UserDTO toUserDTO_v4(User user , String address);
 
-//    @Mapping(target = "address" , source = "addressDTO")
-//    UserDTO toUserDTO_v5(User user , AddressDTO addressDTO);
-
-    @Mapping(target = "address" , source = "addressDTO.address")
-    UserDTO toUserDTO_v6(User user , AddressDTO addressDTO);
+    @Mapping(target = "addressDTO" , source = "address")
+    UserDTO toUserDTO_v7(User user , Address address);
 }
