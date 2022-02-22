@@ -10,6 +10,7 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 * 롬복 최신버전은 annotationProcessor "org.projectlombok:lombok:1.18.6" 없이 된다
@@ -43,4 +44,10 @@ public interface UserMapper {
 
     @IterableMapping(qualifiedByName = "v10")
     List<UserDTO> toDTOList(List<User> users);
+
+    default List<UserDTO> toDTOList2(List<User> users) {
+        return users.stream()
+                .map(this::toUserDTO_v2)
+                .collect(Collectors.toList());
+    }
 }
