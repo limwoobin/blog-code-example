@@ -5,7 +5,6 @@ import com.example.mapstructexample.application.domain.User;
 import com.example.mapstructexample.application.mapper.UserMapper;
 import com.example.mapstructexample.application.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,9 +14,7 @@ public class UserService {
     private UserMapper userMapper = UserMapper.INSTANCE;
 
     public UserDTO create(UserDTO userDTO) {
-//        User user = userMapper.toUser(userDTO);
-//        UserDTO userDTO1 = userMapper.toUserDTO(userRepository.save(user));
-//        return userDTO1;
-        return null;
+        User user = userMapper.toUser(userDTO);
+        return userMapper.toUserDTO(userRepository.save(user));
     }
 }
