@@ -5,8 +5,8 @@ spring:
   profiles:
     active: local
   datasource:
-    url: jdbc:h2:tcp://localhost/~/test
-    username: sa
+    url: jdbc:h2:mem:test
+    username: test
     password:
     driver-class-name: org.h2.Driver
 
