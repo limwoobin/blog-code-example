@@ -7,10 +7,10 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @Builder
-public class UserDTO {
+public class User {
     private Long id;
     private String name;
     private Gender gender;
     private Integer age;
-    private MobileCarrier mobileCarrier;
+    private City city;
 }
