@@ -13,4 +13,15 @@ public class User {
     private Gender gender;
     private Integer age;
     private City city;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", gender=" + gender +
+                ", age=" + age +
+                ", city=" + city +
+                '}';
+    }
 }

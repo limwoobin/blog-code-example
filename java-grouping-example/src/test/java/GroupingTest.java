@@ -1,5 +1,6 @@
 import application.City;
 import application.Gender;
+import application.Tuple;
 import application.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -60,6 +61,51 @@ public class GroupingTest {
         assertEquals(여자_SEOUL_그룹.size(), 1);
         assertEquals(여자_NEW_YORK_그룹.size(), 1);
         assertEquals(여자_TOKYO_그룹.size(), 2);
+    }
+
+    @DisplayName("Custom Class 를 이용하여 그룹핑 출력")
+    @Test
+    void grouping_test_3() {
+        // given
+        List<User> 유저_목록 = UserData.users;
+
+        // when
+        Map<Tuple, List<User>> result = 유저_목록.stream()
+                .collect(groupingBy(user -> new Tuple(user.getGender(), user.getCity())));
+
+        // then
+        for (Map.Entry<Tuple, List<User>> elem : result.entrySet()) {
+            System.out.print("[" + elem.getKey().getGender() + "," + elem.getKey().getCity() + "]: ");
+            System.out.print(elem.getValue().toString());
+            System.out.println();
+        }
+    }
+
+    @DisplayName("Custom Class 를 이용하여 그룹핑 후 검증하라")
+    @Test
+    void grouping_test_4() {
+        // given
+        List<User> 유저_목록 = UserData.users;
+
+        // when
+        Map<Tuple, List<User>> result = 유저_목록.stream()
+                .collect(groupingBy(user -> new Tuple(user.getGender(), user.getCity())));
+
+        // then
+        Tuple 남자_SEOUL_tuple = new Tuple(Gender.MALE, City.SEOUL);
+        Tuple 남자_PARIS_tuple = new Tuple(Gender.MALE, City.PARIS);
+        Tuple 남자_LA_tuple = new Tuple(Gender.MALE, City.LA);
+
+        Tuple 여자_SEOUL_tuple = new Tuple(Gender.FEMALE, City.SEOUL);
+        Tuple 여자_NEW_YORK_tuple = new Tuple(Gender.FEMALE, City.NEW_YORK);
+        Tuple 여자_TOKYO_tuple = new Tuple(Gender.FEMALE, City.TOKYO);
+
+        assertEquals(result.get(남자_SEOUL_tuple).size(), 1);
+        assertEquals(result.get(남자_PARIS_tuple).size(), 2);
+        assertEquals(result.get(남자_LA_tuple).size(), 2);
+        assertEquals(result.get(여자_SEOUL_tuple).size(), 1);
+        assertEquals(result.get(여자_NEW_YORK_tuple).size(), 1);
+        assertEquals(result.get(여자_TOKYO_tuple).size(), 2);
     }
 }
 
