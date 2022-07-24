@@ -26,6 +26,17 @@ public class Stock {
     @Version
     private Long version;
 
+    public Stock(String name, String location, Long availableStock) {
+        this.name = name;
+        this.location = location;
+        this.availableStock = availableStock;
+    }
+
+    public static Stock createStock(String name, String location, Long availableStock) {
+        return new Stock(name, location, availableStock);
+    }
+
+
     public void decrease(Long pickingCount) {
         validateStockCount(pickingCount);
         availableStock -= pickingCount;
