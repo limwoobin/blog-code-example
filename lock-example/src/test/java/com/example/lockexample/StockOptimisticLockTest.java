@@ -102,11 +102,4 @@ class StockOptimisticLockTest {
 //            }
         }
     }
-
-    @Test
-    void 순차적_차감_테스트() {
-        Stock savedStock = 재고_1개_생성();
-        stockService.stockPicking(savedStock.getId(), 1L);
-        stockService.stockPicking(savedStock.getId(), 1L);
-    }
 }

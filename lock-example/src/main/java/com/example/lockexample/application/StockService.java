@@ -2,6 +2,7 @@ package com.example.lockexample.application;
 
 import com.example.lockexample.domain.Stock;
 import com.example.lockexample.domain.StockRepository;
+import com.example.lockexample.ui.StockRequest;
 import javax.persistence.OptimisticLockException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -13,6 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class StockService {
     private final StockRepository stockRepository;
+
+    @Transactional
+    public void createStock(StockRequest stockRequest) {
+        Stock stock = stockRequest.toStock();
+        stockRepository.save(stock);
+    }
 
     @Transactional
     public void stockPicking(Long stockId, Long pickingCount) {
