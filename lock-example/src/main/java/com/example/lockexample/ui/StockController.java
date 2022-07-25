@@ -2,6 +2,7 @@ package com.example.lockexample.ui;
 
 import com.example.lockexample.application.StockService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +25,14 @@ public class StockController {
         return new ResponseEntity<>(stockService.createStock(stockRequest), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/{stockId}/picking")
-    public ResponseEntity<Void> picking(@PathVariable Long stockId, @RequestParam Long pickingCount) {
-        stockService.decrease(stockId, pickingCount);
+    @PutMapping(value = "/{stockId}/decrease")
+    public ResponseEntity decrease(@PathVariable Long stockId, @RequestParam Long pickingCount) {
+        try {
+            stockService.decrease(stockId, pickingCount);
+        } catch (OptimisticLockingFailureException e) {
+            return new ResponseEntity<>("이미 재고가 차감되었습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
