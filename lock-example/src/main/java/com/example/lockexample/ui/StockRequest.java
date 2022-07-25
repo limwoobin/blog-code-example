@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @Getter
 public class StockRequest {
     private String name;
-    private String location;
     private Long availableCount;
 
     public Stock toStock() {
-        return Stock.createStock(name, location, availableCount);
+        return Stock.createStock(name, availableCount);
     }
 }

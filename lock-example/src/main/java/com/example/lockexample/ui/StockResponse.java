@@ -12,14 +12,12 @@ public class StockResponse {
 
     private Long id;
     private String name;
-    private String location;
     private Long availableCount;
 
     public static StockResponse toResponse(Stock stock) {
         return new StockResponse(
             stock.getId(),
             stock.getName(),
-            stock.getLocation(),
             stock.getAvailableStock()
         );
     }

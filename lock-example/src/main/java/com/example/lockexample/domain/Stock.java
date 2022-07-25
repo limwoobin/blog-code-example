@@ -19,21 +19,18 @@ public class Stock {
 
     private String name;
 
-    private String location;
-
     private Long availableStock;
 
     @Version
     private Long version;
 
-    public Stock(String name, String location, Long availableStock) {
+    public Stock(String name, Long availableStock) {
         this.name = name;
-        this.location = location;
         this.availableStock = availableStock;
     }
 
-    public static Stock createStock(String name, String location, Long availableStock) {
-        return new Stock(name, location, availableStock);
+    public static Stock createStock(String name, Long availableStock) {
+        return new Stock(name, availableStock);
     }
 
 
