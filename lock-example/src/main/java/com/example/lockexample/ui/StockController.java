@@ -26,7 +26,7 @@ public class StockController {
 
     @PutMapping(value = "/{stockId}/picking")
     public ResponseEntity<Void> picking(@PathVariable Long stockId, @RequestParam Long pickingCount) {
-        stockService.stockPicking(stockId, pickingCount);
+        stockService.decrease(stockId, pickingCount);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

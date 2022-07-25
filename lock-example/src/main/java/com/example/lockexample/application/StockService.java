@@ -6,7 +6,6 @@ import com.example.lockexample.ui.StockRequest;
 import com.example.lockexample.ui.StockResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -22,15 +21,10 @@ public class StockService {
     }
 
     @Transactional
-    public void stockPicking(Long stockId, Long pickingCount) {
+    public void decrease(Long stockId, Long pickingCount) {
         Stock stock = stockRepository.findById(stockId)
             .orElseThrow(IllegalStateException::new);
 
-        stock.decrease(pickingCount);
-    }
-
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    public void decrease(Stock stock, Long pickingCount) {
         stock.decrease(pickingCount);
     }
 }
