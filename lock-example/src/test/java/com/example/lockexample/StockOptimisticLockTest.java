@@ -1,6 +1,6 @@
 package com.example.lockexample;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.example.lockexample.application.StockService;
 import com.example.lockexample.domain.Stock;
@@ -44,11 +44,11 @@ class StockOptimisticLockTest {
             result = (Exception) e.getCause();
         }
 
-        assertThat(result instanceof OptimisticLockingFailureException);
+        assertTrue(result instanceof OptimisticLockingFailureException);
     }
 
     Stock 재고_1개_생성() {
-        Stock stock = Stock.createStock("불닭볶음면", "T-1011", 1L);
+        Stock stock = Stock.createStock("불닭볶음면", 1L);
         stockRepository.save(stock);
         return stock;
     }
