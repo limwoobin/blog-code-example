@@ -5,6 +5,9 @@ import com.example.lockexample.ui.StockResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +29,24 @@ public class StockAcceptanceTest {
     void 재고를_차감한다() {
         StockResponse 재고 = N개의_재고를_생성(1L).as(StockResponse.class);
         N개의_재고를_차감(재고.getId(), 1L);
+    }
+
+    @Test
+    void 동시에_재고를_차감한다() throws InterruptedException {
+        StockResponse 재고 =  N개의_재고를_생성(1L).as(StockResponse.class);
+
+        int numberOfThreads = 2;
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
+        CountDownLatch latch = new CountDownLatch(numberOfThreads);
+
+        for (int i=0; i<numberOfThreads; i++) {
+            executorService.execute(() -> {
+                N개의_재고를_차감(재고.getId(), 1L);
+                latch.countDown();
+            });
+        }
+
+        latch.await();
     }
 
     ExtractableResponse<Response> N개의_재고를_생성(Long stockCount) {

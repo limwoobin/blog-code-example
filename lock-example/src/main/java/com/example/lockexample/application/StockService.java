@@ -4,9 +4,7 @@ import com.example.lockexample.domain.Stock;
 import com.example.lockexample.domain.StockRepository;
 import com.example.lockexample.ui.StockRequest;
 import com.example.lockexample.ui.StockResponse;
-import javax.persistence.OptimisticLockException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,28 +23,10 @@ public class StockService {
 
     @Transactional
     public void stockPicking(Long stockId, Long pickingCount) {
+        Stock stock = stockRepository.findById(stockId)
+            .orElseThrow(IllegalStateException::new);
 
-        try {
-            Stock stock = stockRepository.findById(stockId)
-                .orElseThrow(IllegalStateException::new);
-
-            System.out.println("####### before: " + stock.getAvailableStock());
-
-            stock.decrease(pickingCount);
-
-            System.out.println("####### after: " + stock.getAvailableStock());
-        } catch (Exception e) {
-            System.out.println("[ERROR]: " + e.getClass());
-        }
-
-//        Stock stock = stockRepository.findById(stockId)
-//            .orElseThrow(IllegalStateException::new);
-//
-//        System.out.println("####### before: " + stock.getAvailableStock());
-//
-//        stock.decrease(pickingCount);
-//
-//        System.out.println("####### after: " + stock.getAvailableStock());
+        stock.decrease(pickingCount);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
