@@ -8,12 +8,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class StockRequest {
+public class StockResponse {
+
+    private Long id;
     private String name;
     private String location;
     private Long availableCount;
 
-    public Stock toStock() {
-        return Stock.createStock(name, location, availableCount);
+    public static StockResponse toResponse(Stock stock) {
+        return new StockResponse(
+            stock.getId(),
+            stock.getName(),
+            stock.getLocation(),
+            stock.getAvailableStock()
+        );
     }
 }

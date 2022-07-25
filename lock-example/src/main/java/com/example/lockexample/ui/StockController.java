@@ -13,21 +13,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/stock")
+@RequestMapping(value = "/stocks")
 @RequiredArgsConstructor
 public class StockController {
 
     private final StockService stockService;
 
     @PostMapping
-    public ResponseEntity create(@RequestBody StockRequest stockRequest) {
-        stockService.createStock(stockRequest);
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity<StockResponse> create(@RequestBody StockRequest stockRequest) {
+        return new ResponseEntity<>(stockService.createStock(stockRequest), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{stockId}/picking")
-    public ResponseEntity picking(@PathVariable Long stockId, @RequestParam Long pickingCount) {
+    public ResponseEntity<Void> picking(@PathVariable Long stockId, @RequestParam Long pickingCount) {
         stockService.stockPicking(stockId, pickingCount);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

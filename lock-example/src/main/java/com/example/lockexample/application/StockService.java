@@ -3,6 +3,7 @@ package com.example.lockexample.application;
 import com.example.lockexample.domain.Stock;
 import com.example.lockexample.domain.StockRepository;
 import com.example.lockexample.ui.StockRequest;
+import com.example.lockexample.ui.StockResponse;
 import javax.persistence.OptimisticLockException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
@@ -16,9 +17,10 @@ public class StockService {
     private final StockRepository stockRepository;
 
     @Transactional
-    public void createStock(StockRequest stockRequest) {
+    public StockResponse createStock(StockRequest stockRequest) {
         Stock stock = stockRequest.toStock();
         stockRepository.save(stock);
+        return StockResponse.toResponse(stock);
     }
 
     @Transactional
