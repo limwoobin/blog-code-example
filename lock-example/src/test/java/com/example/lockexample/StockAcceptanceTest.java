@@ -38,13 +38,13 @@ public class StockAcceptanceTest {
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
 
         int failedCount = 0;
-        List<Future<?>> list = new ArrayList<>();
+        List<Future<?>> tasks = new ArrayList<>();
         for (int i = 0; i < numberOfThreads; i++) {
             Future<?> task = executorService.submit(() -> N개의_재고를_차감(재고.getId(), 1L));
-            list.add(task);
+            tasks.add(task);
         }
 
-        for (Future<?> task : list) {
+        for (Future<?> task : tasks) {
             ExtractableResponse<Response> response = (ExtractableResponse<Response>) task.get();
             System.out.println("res: " + response.statusCode());
             System.out.println("res: " + response.asString());
