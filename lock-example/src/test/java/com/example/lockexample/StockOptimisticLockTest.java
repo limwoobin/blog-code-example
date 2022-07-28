@@ -31,7 +31,7 @@ class StockOptimisticLockTest {
     @Test
     void 낙관적락_재고_선점_테스트() throws InterruptedException {
         Stock savedStock = 재고_1개_생성();
-        int numberOfThreads = 2;
+        int numberOfThreads = 3;
 
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
 
@@ -39,12 +39,17 @@ class StockOptimisticLockTest {
             () -> stockService.decrease(savedStock.getId(), 1L));
         Future<?> future2 = executorService.submit(
             () -> stockService.decrease(savedStock.getId(), 1L));
+        Future<?> future3 = executorService.submit(
+            () -> stockService.decrease(savedStock.getId(), 1L));
 
         Exception result = new Exception();
 
         try {
             future.get();
+            Thread.sleep(5000);
+
             future2.get();
+            future3.get();
         } catch (ExecutionException e) {
             result = (Exception) e.getCause();
         }
