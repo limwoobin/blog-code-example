@@ -3,7 +3,7 @@ package immutable;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-@DisplayName("불변 객체 테스트")
+@DisplayName("불변 객체 ReferenceType 테스트")
 class ImmutableReferenceTest {
 
     @Test
