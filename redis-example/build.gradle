@@ -27,6 +27,9 @@ dependencies {
 
     //embedded-redis
     implementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.1'
+
+    // test-containers
+    testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.17.2'
 }
 
 tasks.named('test') {
