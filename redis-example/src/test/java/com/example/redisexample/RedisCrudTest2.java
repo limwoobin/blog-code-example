@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@DisplayName("Redis CRUD Test")
+@DisplayName("Redis CRUD Test2")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class RedisCrudTest2 {
 
@@ -25,11 +25,7 @@ class RedisCrudTest2 {
 
     @BeforeEach
     void setUp() {
-        product = Product.builder()
-                .id("P0001")
-                .name("테스트_상품")
-                .price(20000L)
-                .build();
+        product = new Product("P0001", "테스트_상품", 20000L);
     }
 
     @AfterEach

@@ -25,11 +25,7 @@ class RedisCrudTest {
 
     @BeforeEach
     void setUp() {
-        product = Product.builder()
-                .id("P0001")
-                .name("테스트_상품")
-                .price(20000L)
-                .build();
+        product = new Product("P0001", "테스트_상품", 20000L);
     }
 
     @AfterEach
