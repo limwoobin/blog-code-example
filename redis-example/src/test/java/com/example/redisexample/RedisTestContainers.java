@@ -10,17 +10,16 @@ import org.testcontainers.utility.DockerImageName;
 @Profile("test")
 @Configuration
 public class RedisTestContainers {
+
     private static final String REDIS_DOCKER_IMAGE = "redis:5.0.3-alpine";
 
     static {
         GenericContainer<?> REDIS_CONTAINER =
-                new GenericContainer<>(DockerImageName.parse(REDIS_DOCKER_IMAGE))
-                        .withExposedPorts(6379);
+            new GenericContainer<>(DockerImageName.parse(REDIS_DOCKER_IMAGE))
+                .withExposedPorts(6379)
+                .withReuse(true);
 
         REDIS_CONTAINER.start();
-
-        System.out.println("spring.redis.host: " + REDIS_CONTAINER.getHost());
-        System.out.println("spring.redis.port: " + REDIS_CONTAINER.getMappedPort(6379).toString());
 
         System.setProperty("spring.redis.host", REDIS_CONTAINER.getHost());
         System.setProperty("spring.redis.port", REDIS_CONTAINER.getMappedPort(6379).toString());
