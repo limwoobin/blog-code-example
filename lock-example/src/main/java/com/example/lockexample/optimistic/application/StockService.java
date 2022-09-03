@@ -1,9 +1,9 @@
-package com.example.lockexample.application;
+package com.example.lockexample.optimistic.application;
 
-import com.example.lockexample.domain.Stock;
-import com.example.lockexample.domain.StockRepository;
-import com.example.lockexample.ui.StockRequest;
-import com.example.lockexample.ui.StockResponse;
+import com.example.lockexample.optimistic.domain.Stock;
+import com.example.lockexample.optimistic.domain.StockRepository;
+import com.example.lockexample.dto.StockRequest;
+import com.example.lockexample.dto.StockResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

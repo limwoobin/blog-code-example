@@ -1,4 +1,4 @@
-package com.example.lockexample.domain;
+package com.example.lockexample.optimistic.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

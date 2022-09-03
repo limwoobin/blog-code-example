@@ -1,6 +1,6 @@
-package com.example.lockexample.ui;
+package com.example.lockexample.dto;
 
-import com.example.lockexample.domain.Stock;
+import com.example.lockexample.optimistic.domain.Stock;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

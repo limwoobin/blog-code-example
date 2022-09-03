@@ -1,11 +1,11 @@
-package com.example.lockexample;
+package com.example.lockexample.optimistic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.example.lockexample.application.StockService;
-import com.example.lockexample.domain.Stock;
-import com.example.lockexample.domain.StockRepository;
+import com.example.lockexample.optimistic.application.StockService;
+import com.example.lockexample.optimistic.domain.Stock;
+import com.example.lockexample.optimistic.domain.StockRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
