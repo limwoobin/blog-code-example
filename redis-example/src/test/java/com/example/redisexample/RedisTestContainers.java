@@ -2,12 +2,12 @@ package com.example.redisexample;
 
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.utility.DockerImageName;
 
 @DisplayName("Redis Test Containers")
-@Profile("test")
+@ActiveProfiles("test")
 @Configuration
 public class RedisTestContainers {
 
