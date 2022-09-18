@@ -29,6 +29,9 @@ dependencies {
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
     runtimeOnly 'com.h2database:h2'
 
+    // distributed lock
+    implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
+
     // test-containers
     testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.17.2'
 }
