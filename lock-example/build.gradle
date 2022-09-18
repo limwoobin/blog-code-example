@@ -28,6 +28,9 @@ dependencies {
 
     testImplementation 'io.rest-assured:rest-assured:3.3.0'
     runtimeOnly 'com.h2database:h2'
+
+    // test-containers
+    testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.17.2'
 }
 
 tasks.named('test') {
