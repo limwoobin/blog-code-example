@@ -1,8 +1,8 @@
 package com.example.lockexample.optimistic;
 
 import com.example.lockexample.optimistic.application.StockService;
-import com.example.lockexample.dto.StockRequest;
-import com.example.lockexample.dto.StockResponse;
+import com.example.lockexample.optimistic.dto.StockRequest;
+import com.example.lockexample.optimistic.dto.StockResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpStatus;

@@ -2,8 +2,8 @@ package com.example.lockexample.optimistic;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.lockexample.dto.StockRequest;
-import com.example.lockexample.dto.StockResponse;
+import com.example.lockexample.optimistic.dto.StockRequest;
+import com.example.lockexample.optimistic.dto.StockResponse;
 import io.restassured.RestAssured;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;

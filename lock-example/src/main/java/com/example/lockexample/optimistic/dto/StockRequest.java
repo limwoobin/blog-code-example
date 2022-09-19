@@ -1,4 +1,4 @@
-package com.example.lockexample.dto;
+package com.example.lockexample.optimistic.dto;
 
 import com.example.lockexample.optimistic.domain.Stock;
 import lombok.AllArgsConstructor;
