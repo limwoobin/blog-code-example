@@ -15,5 +15,5 @@ public @interface DistributeLock {
 
     long waitTime() default 4L;
 
-    long releaseTime() default 3L;
+    long leaseTime() default 3L;
 }

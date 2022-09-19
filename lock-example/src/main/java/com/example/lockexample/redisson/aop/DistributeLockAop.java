@@ -10,7 +10,6 @@ import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
 
 @Aspect
 @Component
@@ -34,10 +33,9 @@ public class DistributeLockAop {
         log.info("lockKey {}" , key);
 
         RLock rLock = redissonClient.getLock(key);
-        TimeUnit timeUnit = (TimeUnit) CustomSpringELParser.getDynamicValue(signature.getParameterNames(), joinPoint.getArgs(), "timeUnit");
 
         try {
-            boolean available = rLock.tryLock(4L, 3L, timeUnit);
+            boolean available = rLock.tryLock(distributeLock.waitTime(), distributeLock.leaseTime(), distributeLock.timeUnit());
             if (!available) {
                 return false;
             }
