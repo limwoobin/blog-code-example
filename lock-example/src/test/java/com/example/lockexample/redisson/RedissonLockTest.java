@@ -3,6 +3,7 @@ package com.example.lockexample.redisson;
 import com.example.lockexample.redisson.application.CouponService;
 import com.example.lockexample.redisson.domain.Coupon;
 import com.example.lockexample.redisson.domain.CouponRepository;
+import com.example.lockexample.redisson.dto.CouponRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.concurrent.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName("Redisson Lock 테스트")
 @SpringBootTest
@@ -98,5 +100,30 @@ class RedissonLockTest {
                 .orElseThrow(IllegalArgumentException::new);
 
         assertThat(persistCoupon.getAvailableStock()).isZero();
+    }
+
+    @Test
+    void 같은이름의_쿠폰이_여러개_등록될수_없음() throws InterruptedException {
+        CouponRequest couponRequest = new CouponRequest("NEW001", 10L);
+        String key = "COUPON_" + couponRequest.getName();
+
+        int numberOfThreads = 10;
+        ExecutorService executorService = Executors.newFixedThreadPool(32);
+        CountDownLatch latch = new CountDownLatch(numberOfThreads);
+
+        for (int i=0; i<numberOfThreads; i++) {
+            executorService.submit(() -> {
+                try {
+                    couponService.registerCoupon(key, couponRequest);
+                } finally {
+                    latch.countDown();
+                }
+            });
+        }
+
+        latch.await();
+
+        Long totalCount = couponRepository.count();
+        assertEquals(totalCount, 1L);
     }
 }
