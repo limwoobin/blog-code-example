@@ -32,6 +32,7 @@ public class Coupon {
     }
 
     public void decrease() {
+        validateStockCount();
         this.availableStock -= 1;
     }
 
