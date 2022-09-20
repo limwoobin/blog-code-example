@@ -15,9 +15,9 @@ import java.lang.reflect.Method;
 @Component
 @Slf4j
 public class DistributeLockAop {
-    private static String REDISSON_KEY_PREFIX = "RLOCK_";
+    private static final String REDISSON_KEY_PREFIX = "RLOCK_";
 
-    private RedissonClient redissonClient;
+    private final RedissonClient redissonClient;
 
     public DistributeLockAop(RedissonClient redissonClient) {
         this.redissonClient = redissonClient;
