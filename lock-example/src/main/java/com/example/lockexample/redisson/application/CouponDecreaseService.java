@@ -15,7 +15,7 @@ public class CouponDecreaseService {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     @DistributeLock(key = "#key")
-    public void couponDecrease(String key, Long couponId) {
+    public void couponDecrease(final String key, Long couponId) {
         Coupon coupon = couponRepository.findById(couponId)
                 .orElseThrow(IllegalArgumentException::new);
 
