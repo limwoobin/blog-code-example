@@ -1,6 +1,5 @@
 package com.example.lockexample.redisson.application;
 
-import com.example.lockexample.redisson.aop.DistributeLock;
 import com.example.lockexample.redisson.domain.Coupon;
 import com.example.lockexample.redisson.domain.CouponRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,7 @@ public class CouponDecreaseService {
     private final CouponRepository couponRepository;
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @DistributeLock(key = "#key")
-    public void couponDecrease(final String key, Long couponId) {
+    public void couponDecrease(Long couponId) {
         Coupon coupon = couponRepository.findById(couponId)
                 .orElseThrow(IllegalArgumentException::new);
 
