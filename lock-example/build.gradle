@@ -34,8 +34,11 @@ dependencies {
 
     // test-containers
     testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.17.2'
+    testImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.3'
+    testImplementation group: 'org.testcontainers', name: 'mysql', version: '1.17.3'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+
 }

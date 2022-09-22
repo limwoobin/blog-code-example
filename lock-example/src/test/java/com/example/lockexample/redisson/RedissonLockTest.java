@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.concurrent.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -107,7 +108,7 @@ class RedissonLockTest {
         CouponRequest couponRequest = new CouponRequest("NEW001", 10L);
         String key = "COUPON_" + couponRequest.getName();
 
-        int numberOfThreads = 10;
+        int numberOfThreads = 50;
         ExecutorService executorService = Executors.newFixedThreadPool(32);
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
 
@@ -124,6 +125,6 @@ class RedissonLockTest {
         latch.await();
 
         Long totalCount = couponRepository.count();
-        assertEquals(totalCount, 1L);
+        assertEquals(totalCount, 2);
     }
 }
