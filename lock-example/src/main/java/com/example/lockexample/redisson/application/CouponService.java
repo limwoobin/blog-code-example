@@ -1,10 +1,10 @@
 package com.example.lockexample.redisson.application;
 
-import com.example.lockexample.redisson.aop.DistributeLock;
 import com.example.lockexample.redisson.dto.CouponRequest;
 import com.example.lockexample.redisson.dto.CouponResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -12,13 +12,17 @@ public class CouponService {
     private final CouponDecreaseService couponDecreaseService;
     private final CouponRegisterService couponRegisterService;
 
-    @DistributeLock(key = "#key")
     public CouponResponse registerCoupon(final String key, CouponRequest couponRequest) {
-        return couponRegisterService.register(couponRequest);
+        System.out.println("register begin ### ");
+        CouponResponse response = couponRegisterService.register(key, couponRequest);
+        System.out.println("register begin ### ");
+
+        return response;
     }
 
-    @DistributeLock(key = "#key")
     public void decrease(final String key, Long couponId) {
-        couponDecreaseService.couponDecrease(couponId);
+        System.out.println("tx begin ### ");
+        couponDecreaseService.couponDecrease(key, couponId);
+        System.out.println("tx end ### ");
     }
 }
