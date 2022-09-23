@@ -10,3 +10,6 @@ spring:
     active: test
   jpa:
     show-sql: true
+  datasource:
+    hikari:
+      maximum-pool-size: 5
