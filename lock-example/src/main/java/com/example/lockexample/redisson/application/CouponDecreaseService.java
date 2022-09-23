@@ -16,8 +16,6 @@ public class CouponDecreaseService {
         Coupon coupon = couponRepository.findById(couponId)
                 .orElseThrow(IllegalArgumentException::new);
 
-        System.out.println("count: " + coupon.getAvailableStock());
-
         coupon.decrease();
     }
 }
