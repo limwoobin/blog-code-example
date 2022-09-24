@@ -1,7 +1,8 @@
 spring:
 #  datasource:
-#    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-#    url: jdbc:tc:mysql:5.7:///test?user=root?password=;
+#    hikari:
+#      driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+#      jdbc-url: jdbc:tc:mysql:5.7.22:///test?user=root?password=;
   redis:
     host: 127.0.0.1
     port: 6379
@@ -10,11 +11,7 @@ spring:
     active: test
   jpa:
     show-sql: true
-  datasource:
-    hikari:
-      maximum-pool-size: 5
 
 logging:
   level:
-    root: debug
-    com.zaxxer.hikari.pool.HikariPool: debug
+    root: info
