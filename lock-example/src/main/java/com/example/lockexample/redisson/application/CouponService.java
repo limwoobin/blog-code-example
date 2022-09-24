@@ -11,21 +11,15 @@ public class CouponService {
     private final CouponDecreaseService couponDecreaseService;
     private final CouponRegisterService couponRegisterService;
 
-    public CouponResponse registerCoupon(CouponRequest couponRequest) {
-        System.out.println("register begin ### ");
-        String key = "COUPON_" + couponRequest.getName();
-        CouponResponse response = couponRegisterService.register(key, couponRequest);
-        System.out.println("register begin ### ");
+    private static final String COUPON_KEY_PREFIX = "COUPON_";
 
-        return response;
+    public CouponResponse registerCoupon(CouponRequest couponRequest) {
+        String key = COUPON_KEY_PREFIX + couponRequest.getName();
+        return couponRegisterService.register(key, couponRequest);
     }
 
     public void decrease(Long couponId) {
-        System.out.println("tx begin ### ");
-
-        String key = "COUPON_" + couponId;
+        String key = COUPON_KEY_PREFIX + couponId;
         couponDecreaseService.couponDecrease(key, couponId);
-
-        System.out.println("tx end ### ");
     }
 }
