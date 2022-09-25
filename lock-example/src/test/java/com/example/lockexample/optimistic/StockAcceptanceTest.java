@@ -58,7 +58,7 @@ public class StockAcceptanceTest {
     }
 
     ExtractableResponse<Response> N개의_재고를_생성(Long stockCount) {
-        StockRequest stockRequest = new StockRequest("돈까스", stockCount);
+        StockRequest stockRequest = new StockRequest("STOCK_V1", stockCount);
 
         return RestAssured
             .given().log().all()

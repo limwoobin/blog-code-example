@@ -87,7 +87,7 @@ class StockOptimisticLockTest {
     }
 
     Stock 재고_1개_생성() {
-        Stock stock = Stock.createStock("불닭볶음면", 1L);
+        Stock stock = Stock.createStock("STOCK_V1", 1L);
         stockRepository.save(stock);
         return stock;
     }

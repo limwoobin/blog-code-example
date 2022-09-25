@@ -1,6 +1,5 @@
 package com.example.lockexample.redisson;
 
-import com.example.lockexample.MySQLTestContainer;
 import com.example.lockexample.redisson.application.CouponService;
 import com.example.lockexample.redisson.domain.Coupon;
 import com.example.lockexample.redisson.domain.CouponRepository;
