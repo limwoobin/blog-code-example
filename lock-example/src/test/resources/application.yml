@@ -1,8 +1,8 @@
 spring:
   datasource:
     hikari:
-      driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
-      jdbc-url: jdbc:tc:mysql:5.7.22:///test
+#      driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+#      jdbc-url: jdbc:tc:mysql:5.7.22:///test
       maximum-pool-size: 5
   redis:
     host: 127.0.0.1
@@ -12,6 +12,5 @@ spring:
     active: test
   jpa:
     show-sql: true
-#    database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
