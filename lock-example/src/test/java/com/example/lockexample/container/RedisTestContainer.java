@@ -1,4 +1,4 @@
-package com.example.lockexample.redisson;
+package com.example.lockexample.container;
 
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.context.annotation.Configuration;
