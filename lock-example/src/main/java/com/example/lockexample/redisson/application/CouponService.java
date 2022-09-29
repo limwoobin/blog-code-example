@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class CouponService {
     private final CouponDecreaseService couponDecreaseService;
     private final CouponRegisterService couponRegisterService;
+    private final CouponDecreaseFacade couponDecreaseFacade;
 
     private static final String COUPON_KEY_PREFIX = "COUPON_";
 
@@ -21,5 +22,9 @@ public class CouponService {
     public void decrease(Long couponId) {
         String key = COUPON_KEY_PREFIX + couponId;
         couponDecreaseService.couponDecrease(key, couponId);
+    }
+
+    public void decrease2(Long couponId) {
+        couponDecreaseFacade.decrease(couponId);
     }
 }
