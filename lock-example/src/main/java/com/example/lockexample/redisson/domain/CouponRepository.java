@@ -6,4 +6,5 @@ import java.util.Optional;
 
 public interface CouponRepository extends JpaRepository<Coupon, Long> {
     Optional<Coupon> findByName(String name);
+    Long countByName(String name);
 }

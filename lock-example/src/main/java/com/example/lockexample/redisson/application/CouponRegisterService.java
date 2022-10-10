@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CouponRegisterService {
+
     private final CouponRepository couponRepository;
 
     @DistributeLock(key = "#key")
@@ -23,9 +24,8 @@ public class CouponRegisterService {
     }
 
     private void validateAlreadyExist(CouponRequest request) {
-        couponRepository.findByName(request.getName())
-                .ifPresent(x -> {
-                    throw new IllegalArgumentException();
-                });
+        couponRepository.findByName(request.getName()).ifPresent(x -> {
+            throw new IllegalArgumentException();
+        });
     }
 }
