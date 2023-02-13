@@ -1,6 +1,6 @@
 package com.example.lockexample.redisson.application;
 
-import com.example.lockexample.redisson.aop.DistributeLock;
+import com.example.lockexample.redisson.aop.DistributedLock;
 import com.example.lockexample.redisson.domain.Coupon;
 import com.example.lockexample.redisson.domain.CouponRepository;
 import com.example.lockexample.redisson.dto.CouponRequest;
@@ -14,7 +14,7 @@ public class CouponRegisterService {
 
     private final CouponRepository couponRepository;
 
-    @DistributeLock(key = "#key")
+    @DistributedLock(key = "#key")
     public CouponResponse register(final String key, CouponRequest request) {
         validateAlreadyExist(request);
 

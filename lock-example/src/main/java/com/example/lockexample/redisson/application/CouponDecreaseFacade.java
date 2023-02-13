@@ -13,7 +13,10 @@ public class CouponDecreaseFacade {
     public void decrease(Long couponId) {
         String key = COUPON_KEY_PREFIX + couponId;
         couponDecreaseService.couponDecrease(key, couponId);
+    }
 
-        // after process...
+    public void decrease2(Long couponId) {
+        String key = COUPON_KEY_PREFIX + couponId;
+        couponDecreaseService.couponDecrease2(key, couponId);
     }
 }
