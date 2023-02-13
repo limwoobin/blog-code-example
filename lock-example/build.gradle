@@ -36,6 +36,9 @@ dependencies {
     testImplementation group: 'org.testcontainers', name: 'testcontainers', version: '1.17.2'
     testImplementation group: 'org.testcontainers', name: 'junit-jupiter', version: '1.17.3'
     testImplementation group: 'org.testcontainers', name: 'mysql', version: '1.17.3'
+
+    // log
+    implementation ('net.logstash.logback:logstash-logback-encoder:6.6')
 }
 
 tasks.named('test') {
