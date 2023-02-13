@@ -14,6 +14,8 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
+import static net.logstash.logback.argument.StructuredArguments.kv;
+
 @Aspect
 @Component
 @RequiredArgsConstructor
@@ -48,14 +50,20 @@ public class DistributedLockAop {
             Thread.currentThread().interrupt();
             throw new InterruptedException();
         } finally {
-            log.info("unLocked ######");
-            rLock.unlock();
+            try {
+                rLock.unlock();
+            } catch (IllegalMonitorStateException e) {
+                log.info("Redisson Lock Already UnLock {} {}",
+                        kv("serviceName", method.getName()),
+                        kv("key", key)
+                );
+            }
         }
     }
 
-    private void throwException(Class<? extends Throwable> clazz, String message) throws Exception {
-        Constructor<? extends Throwable> constructor = clazz.getConstructor();
-        Exception exception = (Exception) constructor.newInstance();
+    private void throwException(Class<? extends Exception> clazz, String message) throws Exception {
+        Constructor<? extends Exception> constructor = clazz.getConstructor();
+        Exception exception = constructor.newInstance();
 
         if (exception instanceof ExceptionIgnore) {
             return;
