@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 
 import static net.logstash.logback.argument.StructuredArguments.kv;
 
@@ -38,16 +39,17 @@ public class DistributedLockAop {
         RLock rLock = redissonClient.getLock(key);
 
         try {
+            log.info("try Lock Time {}, ThreadId {}", LocalDateTime.now(), Thread.currentThread().getId());
+
             boolean available = rLock.tryLock(distributedLock.waitTime(), distributedLock.leaseTime(), distributedLock.timeUnit());
             if (!available) {
-                throwException(distributedLock.exception(), distributedLock.exceptionMessage());
+                throwException(distributedLock.exceptionClass(), distributedLock.exceptionMessage());
                 return false;
             }
 
             log.info("get lock success {}" , key);
             return aopForTransaction.proceed(joinPoint);
-        } catch (Exception e) {
-            Thread.currentThread().interrupt();
+        } catch (InterruptedException e) {
             throw new InterruptedException();
         } finally {
             try {
@@ -62,13 +64,13 @@ public class DistributedLockAop {
     }
 
     private void throwException(Class<? extends Exception> clazz, String message) throws Exception {
-        Constructor<? extends Exception> constructor = clazz.getConstructor();
-        Exception exception = constructor.newInstance();
+        Constructor<? extends Exception> constructor = clazz.getDeclaredConstructor(String.class);
+        Exception exception = constructor.newInstance(message);
 
         if (exception instanceof ExceptionIgnore) {
             return;
         }
 
-        throw new Exception(message);
+        throw exception;
     }
 }

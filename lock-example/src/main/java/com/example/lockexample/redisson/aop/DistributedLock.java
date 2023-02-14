@@ -19,7 +19,7 @@ public @interface DistributedLock {
 
     long leaseTime() default 3L;
 
-    Class<? extends Exception> exception() default ExceptionIgnore.class;
+    Class<? extends Exception> exceptionClass() default ExceptionIgnore.class;
 
     String exceptionMessage() default "";
 }
