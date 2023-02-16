@@ -39,11 +39,12 @@ class CouponDecreaseLockExceptionTest {
     @Test
     @DisplayName("zz")
     void 쿠폰차감_락_획득_예외테스트() {
-        int numberOfThreads = 2;
+        int numberOfThreads = 3;
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
 
         Future<?> future = executor.submit(new CouponDecreaseWorker(couponService, coupon));
         Future<?> future2 = executor.submit(new CouponDecreaseWorker(couponService, coupon));
+        Future<?> future3 = executor.submit(new CouponDecreaseWorker(couponService, coupon));
         executor.shutdown();
 
         Object result = new Object();
@@ -51,15 +52,12 @@ class CouponDecreaseLockExceptionTest {
         try {
             future.get();
             future2.get();
+            future3.get();
         } catch (Exception e) {
-            e.printStackTrace();
             result = e.getCause();
         }
 
         Exception exception = (Exception) result;
-
-        System.out.println(exception.getClass());
-        System.out.println(exception.getCause().getMessage());
 
         Assertions.assertTrue(exception instanceof InternalServerException);
         assertThat(exception.getMessage()).isEqualTo("서버에서 요청을 처리할 수 없습니다.");

@@ -6,9 +6,6 @@ import com.example.lockexample.redisson.domain.CouponRepository;
 import com.example.lockexample.redisson.exception.InternalServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.HttpServerErrorException;
-
-import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -23,13 +20,16 @@ public class CouponDecreaseService {
         coupon.decrease();
     }
 
-    @DistributedLock(key = "#key", exception = InternalServerException.class, exceptionMessage = "서버에서 요청을 처리할 수 없습니다.")
+    @DistributedLock(
+            key = "#key",
+            exceptionClass = InternalServerException.class,
+            exceptionMessage = "서버에서 요청을 처리할 수 없습니다."
+    )
     public void couponDecrease2(String key, Long couponId) {
         try {
-            System.out.println("method time: " + LocalDateTime.now());
             Thread.sleep(6000);
-        } catch (Exception ignored) {
-        }
+        } catch (Exception ignored) {}
+
         Coupon coupon = couponRepository.findById(couponId)
                 .orElseThrow(IllegalArgumentException::new);
 
