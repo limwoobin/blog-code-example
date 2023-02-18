@@ -35,4 +35,20 @@ public class CouponDecreaseService {
 
         coupon.decrease();
     }
+
+    @DistributedLock(
+            key = "#key",
+            exceptionClass = RuntimeException.class,
+            exceptionMessage = "RuntimeException 입니다."
+    )
+    public void couponDecrease3(String key, Long couponId) {
+        try {
+            Thread.sleep(6000);
+        } catch (Exception ignored) {}
+
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(IllegalArgumentException::new);
+
+        coupon.decrease();
+    }
 }

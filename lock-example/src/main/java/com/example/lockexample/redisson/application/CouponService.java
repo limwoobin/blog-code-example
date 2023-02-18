@@ -27,4 +27,9 @@ public class CouponService {
         String key = COUPON_KEY_PREFIX + couponId;
         couponDecreaseService.couponDecrease2(key, couponId);
     }
+
+    public void decrease3(Long couponId) {
+        String key = COUPON_KEY_PREFIX + couponId;
+        couponDecreaseService.couponDecrease3(key, couponId);
+    }
 }
