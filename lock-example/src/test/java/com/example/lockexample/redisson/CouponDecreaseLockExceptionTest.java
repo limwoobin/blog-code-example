@@ -37,7 +37,7 @@ class CouponDecreaseLockExceptionTest {
     }
 
     @Test
-    @DisplayName("zz")
+    @DisplayName("쿠폰차감 락 획득에 실패하면 InternalServerException 이 발생한다")
     void 쿠폰차감_락_획득_예외테스트() {
         int numberOfThreads = 3;
         ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
@@ -63,6 +63,33 @@ class CouponDecreaseLockExceptionTest {
         assertThat(exception.getMessage()).isEqualTo("서버에서 요청을 처리할 수 없습니다.");
     }
 
+    @Test
+    @DisplayName("쿠폰차감 락 획득에 실패하면 RuntimeException 이 발생한다")
+    void 쿠폰차감_락_획득_예외테스트_v2() {
+        int numberOfThreads = 3;
+        ExecutorService executor = Executors.newFixedThreadPool(numberOfThreads);
+
+        Future<?> future = executor.submit(new CouponDecreaseWorker2(couponService, coupon));
+        Future<?> future2 = executor.submit(new CouponDecreaseWorker2(couponService, coupon));
+        Future<?> future3 = executor.submit(new CouponDecreaseWorker2(couponService, coupon));
+        executor.shutdown();
+
+        Object result = new Object();
+
+        try {
+            future.get();
+            future2.get();
+            future3.get();
+        } catch (Exception e) {
+            result = e.getCause();
+        }
+
+        Exception exception = (Exception) result;
+
+        assertThat(exception).isInstanceOf(RuntimeException.class);
+        assertThat(exception.getMessage()).isEqualTo("RuntimeException 입니다.");
+    }
+
     static class CouponDecreaseWorker implements Runnable {
         private final CouponService couponService;
         private final Coupon coupon;
@@ -75,6 +102,21 @@ class CouponDecreaseLockExceptionTest {
         @Override
         public void run() {
             couponService.decrease2(coupon.getId());
+        }
+    }
+
+    static class CouponDecreaseWorker2 implements Runnable {
+        private final CouponService couponService;
+        private final Coupon coupon;
+
+        public CouponDecreaseWorker2(CouponService couponService, Coupon coupon) {
+            this.couponService = couponService;
+            this.coupon = coupon;
+        }
+
+        @Override
+        public void run() {
+            couponService.decrease3(coupon.getId());
         }
     }
 }
