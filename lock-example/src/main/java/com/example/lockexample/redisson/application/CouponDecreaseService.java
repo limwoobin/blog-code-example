@@ -6,6 +6,7 @@ import com.example.lockexample.redisson.domain.CouponRepository;
 import com.example.lockexample.redisson.exception.InternalServerException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -14,6 +15,14 @@ public class CouponDecreaseService {
 
     @DistributedLock(key = "#key")
     public void couponDecrease(String key, Long couponId) {
+        Coupon coupon = couponRepository.findById(couponId)
+                .orElseThrow(IllegalArgumentException::new);
+
+        coupon.decrease();
+    }
+
+    @Transactional
+    public void couponDecrease(Long couponId) {
         Coupon coupon = couponRepository.findById(couponId)
                 .orElseThrow(IllegalArgumentException::new);
 
