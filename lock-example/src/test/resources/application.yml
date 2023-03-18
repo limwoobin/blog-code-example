@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
     url: jdbc:tc:mysql:8:///test
     hikari:
-      maximum-pool-size: 5
+      maximum-pool-size: 30
   redis:
     host: 127.0.0.1
     port: 6379
