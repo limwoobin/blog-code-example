@@ -13,7 +13,7 @@ class IntegrationTestA extends AbstractIntegrationTest {
   @Autowired
   private CouponRepository couponRepository;
 
-  @DisplayName("Integration Test A Run...")
+  @DisplayName("TestExecution Listener Test A Run...")
   @Test
   void test() {
     List<Coupon> result = couponRepository.findAll();

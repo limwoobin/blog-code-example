@@ -18,13 +18,12 @@ public class CustomTestExecutionListener implements TestExecutionListener {
       .getAutowireCapableBeanFactory()
       .autowireBean(this);
 
-//    if (!initialize) {
-//      Coupon coupon = new Coupon(1L, "coupon");
+    if (!initialize) {
+      System.out.println("TestExecutionListener Test Prepare ...");
+
       Coupon coupon = new Coupon("coupon");
       couponRepository.save(coupon);
-
-      System.out.println("Test Prepare");
       initialize = true;
-//    }
+    }
   }
 }
