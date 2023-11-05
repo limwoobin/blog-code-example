@@ -18,8 +18,7 @@ public class Coupon {
   @Column
   private String name;
 
-  public Coupon(Long id, String name) {
-    this.id = id;
+  public Coupon(String name) {
     this.name = name;
   }
 }
