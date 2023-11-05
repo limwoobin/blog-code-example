@@ -1,4 +1,4 @@
-package com.example.springtestcontext;
+package com.example.springtestcontext.case1;
 
 import com.example.springtestcontext.domain.Coupon;
 import com.example.springtestcontext.domain.CouponRepository;

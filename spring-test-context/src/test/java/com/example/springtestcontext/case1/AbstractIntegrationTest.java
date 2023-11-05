@@ -1,8 +1,6 @@
-package com.example.springtestcontext;
+package com.example.springtestcontext.case1;
 
-import com.example.springtestcontext.domain.Coupon;
 import com.example.springtestcontext.domain.CouponRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,7 +25,7 @@ public class AbstractIntegrationTest {
 //  @BeforeAll
 //  void setUp() {
 //    if (!initialize) {
-//      Coupon coupon = new Coupon(1L, "coupon");
+//      Coupon coupon = new Coupon("coupon");
 //      couponRepository.save(coupon);
 //
 //      System.out.println("init...");
