@@ -13,13 +13,13 @@ public class CustomTestExecutionListener implements TestExecutionListener {
   private CouponRepository couponRepository;
 
   @Override
-  public void prepareTestInstance(TestContext testContext) throws Exception {
+  public void beforeTestClass(TestContext testContext) throws Exception {
     testContext.getApplicationContext()
       .getAutowireCapableBeanFactory()
       .autowireBean(this);
 
     if (!initialize) {
-      System.out.println("TestExecutionListener Test Prepare ...");
+      System.out.println("beforeTestClass Run ...");
 
       Coupon coupon = new Coupon("coupon");
       couponRepository.save(coupon);
