@@ -17,6 +17,6 @@ class IntegrationTestB extends AbstractIntegrationTest {
   @Test
   void test() {
     List<Coupon> result = couponRepository.findAll();
-    System.out.println("coupon size: " + result.size());
+    System.out.println("IntegrationTestB coupon size: " + result.size());
   }
 }
