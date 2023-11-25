@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test_db
+    username: root
+    password: 1234
+  jpa:
+    database: mysql
+    show-sql: true
+#    open-in-view: true # default is true
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
