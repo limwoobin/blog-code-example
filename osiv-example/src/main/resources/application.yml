@@ -10,3 +10,10 @@ spring:
     open-in-view: false
     hibernate:
       ddl-auto: none
+
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: osiv-test-group
+    topics:
+      osiv-test: osiv-test
