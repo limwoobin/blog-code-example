@@ -15,7 +15,7 @@ public class KafkaConsumer {
   private final TeamService teamService;
 
   @KafkaListener(
-    topics = "${spring.kafka.topics.exam}",
+    topics = "${spring.kafka.topics.osiv-test}",
     groupId = "${spring.kafka.consumer.group-id}",
     containerFactory = "containerFactory"
   )

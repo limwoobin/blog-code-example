@@ -15,5 +15,7 @@ spring:
     consumer:
       bootstrap-servers: localhost:9092
       group-id: osiv-test-group
+    producer:
+      bootstrap-servers: localhost:9092
     topics:
       osiv-test: osiv-test
