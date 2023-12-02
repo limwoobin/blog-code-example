@@ -1,0 +1,14 @@
+type Query {
+    teamById(id: ID): TeamResponse
+}
+
+type TeamResponse {
+    id: ID,
+    name: String,
+    members: [MemberResponse]
+}
+
+type MemberResponse {
+    id: ID,
+    name: String
+}
