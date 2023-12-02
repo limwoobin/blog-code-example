@@ -7,7 +7,7 @@ spring:
     database: mysql
     show-sql: true
 #    open-in-view: true # default is true
-    open-in-view: false
+#    open-in-view: false
     hibernate:
       ddl-auto: none
 
