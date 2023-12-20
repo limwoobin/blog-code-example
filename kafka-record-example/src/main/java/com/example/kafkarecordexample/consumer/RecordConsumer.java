@@ -2,6 +2,8 @@ package com.example.kafkarecordexample.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.messaging.MessageHeaders;
+import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +16,8 @@ public class RecordConsumer {
     groupId = "${spring.kafka.consumer.group-id}",
     containerFactory = "containerFactory"
   )
-  public void consume(@Payload String message) {
+  public void consume(@Payload String message, @Headers MessageHeaders messageHeaders) {
     log.info("message: {}", message);
+    log.info("messageHeaders: {}", messageHeaders);
   }
 }
