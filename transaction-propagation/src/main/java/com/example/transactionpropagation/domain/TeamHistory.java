@@ -6,9 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity(name = "teams")
+@Entity(name = "team_histories")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Team {
+public class TeamHistory {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,11 +17,16 @@ public class Team {
   @Column
   private String name;
 
-  private Team(String name) {
-    this.name = name;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "team_id", nullable = false)
+  private Team team;
+
+  private TeamHistory(Team team) {
+    this.name = team.getName();
+    this.team = team;
   }
 
-  public static Team from(String name) {
-    return new Team(name);
+  public static TeamHistory from(Team team) {
+    return new TeamHistory(team);
   }
 }
