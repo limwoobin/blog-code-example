@@ -18,4 +18,16 @@ public class TeamController {
     teamService.save(name);
     return new ResponseEntity<>(HttpStatus.CREATED);
   }
+
+  @PostMapping(value = "v2")
+  public ResponseEntity<Void> saveTeam2(@RequestBody String name) {
+    teamService.save2(name);
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
+
+  @PostMapping(value = "v3")
+  public ResponseEntity<Void> saveTeam3(@RequestBody String name) {
+    teamService.save3(name);
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
 }

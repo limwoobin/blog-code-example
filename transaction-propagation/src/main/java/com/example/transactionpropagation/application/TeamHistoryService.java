@@ -14,12 +14,13 @@ public class TeamHistoryService {
   private final TeamHistoryRepository teamHistoryRepository;
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
-  public void save(Team team) {
-//    if (true) {
-//      throw new RuntimeException();
-//    }
-
+  public void saveHistory(Team team) {
     TeamHistory teamHistory = TeamHistory.from(team);
     teamHistoryRepository.save(teamHistory);
+  }
+
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  public void saveHistory2(Team team) {
+    throw new RuntimeException();
   }
 }

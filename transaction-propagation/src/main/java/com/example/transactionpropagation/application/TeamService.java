@@ -23,6 +23,32 @@ public class TeamService {
 
     Team team = Team.from(name);
     teamRepository.save(team);
-    teamHistoryService.save(team);
+    teamHistoryService.saveHistory(team);
+  }
+
+  @Transactional
+  public void save2(String name) {
+    Optional<Team> optionalTeam = teamRepository.findByName(name);
+    if (optionalTeam.isPresent()) {
+      throw new RuntimeException();
+    }
+
+    Team team = Team.from(name);
+    teamRepository.save(team);
+    teamHistoryService.saveHistory2(team);
+  }
+
+  @Transactional
+  public void save3(String name) {
+    Optional<Team> optionalTeam = teamRepository.findByName(name);
+    if (optionalTeam.isPresent()) {
+      throw new RuntimeException();
+    }
+
+    Team team = Team.from(name);
+    teamRepository.save(team);
+    teamHistoryService.saveHistory(team);
+
+    throw new RuntimeException();
   }
 }
