@@ -23,12 +23,18 @@ public class TeamHistoryService {
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void saveHistory2(Team team) {
+    TeamHistory teamHistory = TeamHistory.from(team);
+    teamHistoryRepository.save(teamHistory);
+
     throw new RuntimeException();
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   public void saveHistory3(Team team) {
     try {
+      TeamHistory teamHistory = TeamHistory.from(team);
+      teamHistoryRepository.save(teamHistory);
+
       throw new RuntimeException();
     } catch (Exception e) {
       log.error("error message {}", e.getMessage());

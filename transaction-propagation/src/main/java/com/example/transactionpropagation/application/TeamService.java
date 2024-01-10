@@ -35,7 +35,7 @@ public class TeamService {
 
     Team team = Team.from(name);
     teamRepository.save(team);
-    teamHistoryService.saveHistory2(team);
+    teamHistoryService.saveHistory3(team);
   }
 
   @Transactional
