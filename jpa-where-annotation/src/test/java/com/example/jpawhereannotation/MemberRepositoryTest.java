@@ -2,15 +2,20 @@ package com.example.jpawhereannotation;
 
 import com.example.jpawhereannotation.domain.Status;
 import com.example.jpawhereannotation.domain.entity.Member;
+import com.example.jpawhereannotation.domain.entity.QMember;
+import com.example.jpawhereannotation.domain.entity.QTeam;
 import com.example.jpawhereannotation.domain.entity.Team;
 import com.example.jpawhereannotation.domain.repository.MemberRepository;
 import com.example.jpawhereannotation.domain.repository.TeamRepository;
+import com.example.jpawhereannotation.domain.value.MemberDto;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import jakarta.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +32,9 @@ class MemberRepositoryTest {
   private MemberRepository memberRepository;
 
   @Autowired
-  private TestEntityManager entityManager;
+  private EntityManager entityManager;
+
+  private JPAQueryFactory jpaQueryFactory;
 
   private Team team1;
   private Member member1;
@@ -35,6 +42,8 @@ class MemberRepositoryTest {
 
   @BeforeEach
   void setUp() {
+     jpaQueryFactory = new JPAQueryFactory(entityManager);
+
     team1 = Team.builder()
       .name("team1")
       .status(Status.ACTIVE)
@@ -89,5 +98,79 @@ class MemberRepositoryTest {
 
     assertThat(result.isPresent()).isTrue();
     assertThat(result2.isPresent()).isFalse();
+  }
+
+  @Test
+  void test4() {
+    entityManager.flush();
+    entityManager.clear();
+
+    QTeam team = QTeam.team;
+
+    Team result = jpaQueryFactory.selectFrom(team)
+      .where(team.id.eq(1L))
+      .fetchOne();
+
+    System.out.println(result);
+  }
+
+  @Test
+  void test5() {
+    entityManager.flush();
+    entityManager.clear();
+
+    QTeam team = QTeam.team;
+    QMember member = QMember.member;
+
+    List<Member> result = jpaQueryFactory.selectFrom(member)
+      .join(team).on(team.eq(member.team))
+      .where(member.id.eq(1L))
+      .fetch();
+
+    System.out.println(result);
+  }
+
+  @Test
+  void test6() {
+    entityManager.flush();
+    entityManager.clear();
+
+    QTeam team = QTeam.team;
+    QMember member = QMember.member;
+
+    List<MemberDto> result = jpaQueryFactory.select(
+      Projections.constructor(MemberDto.class,
+        member.id,
+        member.name,
+        team.id
+      ))
+      .from(member)
+      .join(team).on(team.eq(member.team))
+      .where(member.id.eq(1L))
+      .fetch();
+
+    System.out.println(result);
+  }
+
+  @Test
+  void test7() {
+    entityManager.flush();
+    entityManager.clear();
+
+    QTeam team = QTeam.team;
+    QMember member = QMember.member;
+
+    List<MemberDto> result = jpaQueryFactory.select(
+        Projections.constructor(MemberDto.class,
+          member.id,
+          member.name,
+          team.id
+        ))
+      .from(team)
+      .join(member).on(member.team.eq(team))
+      .where(team.id.eq(1L))
+      .fetch();
+
+    System.out.println(result);
   }
 }
