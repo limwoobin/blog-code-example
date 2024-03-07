@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: 'jdbc:h2:mem:test'   # H2 DB 연결 주소 (In-Memory Mode)
+    username: username        # H2 DB 접속 ID (사용자 지정)
+    password: password        # H2 DB 접속 PW (사용자 지정)
+
+  jpa:
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true
