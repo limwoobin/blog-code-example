@@ -6,7 +6,6 @@ import com.example.jpawhereannotation.domain.entity.QMember;
 import com.example.jpawhereannotation.domain.entity.QTeam;
 import com.example.jpawhereannotation.domain.entity.Team;
 import com.example.jpawhereannotation.domain.repository.MemberRepository;
-import com.example.jpawhereannotation.domain.repository.TeamRepository;
 import com.example.jpawhereannotation.domain.value.MemberDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
