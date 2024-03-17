@@ -9,12 +9,12 @@ spring:
     hibernate:
       ddl-auto: none
 
-logging:
-  level:
-    ROOT: INFO
-    org.hibernate: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    org.springframework.orm: TRACE
-    org.springframework.transaction: TRACE
-    com.zaxxer.hikari: TRACE
-    com.mysql.cj.jdbc: TRACE
+#logging:
+#  level:
+#    ROOT: INFO
+#    org.hibernate: DEBUG
+#    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+#    org.springframework.orm: TRACE
+#    org.springframework.transaction: TRACE
+#    com.zaxxer.hikari: TRACE
+#    com.mysql.cj.jdbc: TRACE
