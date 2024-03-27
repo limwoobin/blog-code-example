@@ -34,4 +34,8 @@ public class Member {
     this.team = team;
     this.status = status;
   }
+
+  public void delete() {
+    this.status = Status.DISABLE;
+  }
 }

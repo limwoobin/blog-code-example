@@ -6,6 +6,7 @@ import com.example.jpawhereannotation.domain.entity.QMember;
 import com.example.jpawhereannotation.domain.entity.QTeam;
 import com.example.jpawhereannotation.domain.entity.Team;
 import com.example.jpawhereannotation.domain.repository.MemberRepository;
+import com.example.jpawhereannotation.domain.repository.TeamRepository;
 import com.example.jpawhereannotation.domain.value.MemberDto;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -22,7 +23,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
-class MemberRepositoryTest {
+class WhereRepositoryTest {
 
   @Autowired
   private TeamRepository teamRepository;
@@ -41,7 +42,7 @@ class MemberRepositoryTest {
 
   @BeforeEach
   void setUp() {
-     jpaQueryFactory = new JPAQueryFactory(entityManager);
+    jpaQueryFactory = new JPAQueryFactory(entityManager);
 
     team1 = Team.builder()
       .name("team1")
@@ -64,6 +65,16 @@ class MemberRepositoryTest {
 
     memberRepository.save(member1);
     memberRepository.save(member2);
+  }
+
+  @Test
+  void basic_test() {
+    entityManager.flush();
+    entityManager.clear();
+
+    Optional<Team> team = teamRepository.findById(1L);
+
+    assertThat(team.isPresent()).isTrue();
   }
 
   @DisplayName(value = "Lazy Loading 의 경우에도 @Where 조건이 정상적으로 동작한다")
@@ -101,22 +112,19 @@ class MemberRepositoryTest {
 
   @Test
   void test4() {
-    entityManager.flush();
-    entityManager.clear();
-
     QTeam team = QTeam.team;
 
     Team result = jpaQueryFactory.selectFrom(team)
       .where(team.id.eq(1L))
       .fetchOne();
 
-    System.out.println(result);
+    assertThat(result.getId()).isEqualTo(1L);
   }
 
   @Test
   void test5() {
-    entityManager.flush();
-    entityManager.clear();
+//    entityManager.flush();
+//    entityManager.clear();
 
     QTeam team = QTeam.team;
     QMember member = QMember.member;
@@ -126,13 +134,13 @@ class MemberRepositoryTest {
       .where(member.id.eq(1L))
       .fetch();
 
-    System.out.println(result);
+    assertThat(result.size()).isEqualTo(1L);
   }
 
   @Test
   void test6() {
-    entityManager.flush();
-    entityManager.clear();
+//    entityManager.flush();
+//    entityManager.clear();
 
     QTeam team = QTeam.team;
     QMember member = QMember.member;
@@ -148,7 +156,7 @@ class MemberRepositoryTest {
       .where(member.id.eq(1L))
       .fetch();
 
-    System.out.println(result);
+    assertThat(result.size()).isEqualTo(1L);
   }
 
   @Test
@@ -171,5 +179,44 @@ class MemberRepositoryTest {
       .fetch();
 
     System.out.println(result);
+  }
+
+  @DisplayName("native query")
+  @Test
+  void test8() {
+    List<Member> members = memberRepository.findByTeamId(1L);
+
+    assertThat(members.size()).isEqualTo(2);
+  }
+
+  @DisplayName(value = "1차 캐시")
+  @Test
+  void test9() {
+    Optional<Member> optionalMember = memberRepository.findById(1L);
+    if (optionalMember.isPresent()) {
+      Member member = optionalMember.get();
+      member.delete();
+      memberRepository.save(member);
+    }
+
+    Optional<Member> persistMember = memberRepository.findById(1L);
+    assertThat(persistMember.isEmpty()).isTrue();
+
+//    Member persistMember = memberRepository.findByName("member1");
+//    System.out.println(persistMember.getName());
+  }
+
+  @Test
+  void test10() {
+    Member newMember = Member.builder()
+      .team(team1)
+      .name("member3")
+      .status(Status.ACTIVE)
+      .build();
+
+    memberRepository.save(newMember);
+
+    Member member = memberRepository.findByName(newMember.getName());
+    System.out.println(member.getName());
   }
 }

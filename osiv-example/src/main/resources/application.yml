@@ -4,7 +4,7 @@ spring:
     username: root
     password: 1234
   jpa:
-    database: mysql
+#    database: mysql
     show-sql: true
 #    open-in-view: true # default is true
 #    open-in-view: false
