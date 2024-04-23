@@ -26,7 +26,7 @@ public class DeadLetterStepConfig {
   public Step deadLetterStep(final JobRepository jobRepository,
                              final PlatformTransactionManager platformTransactionManager) {
     return new StepBuilder(STEP_NAME, jobRepository)
-      .<String, String>chunk(2, platformTransactionManager)
+      .<String, String>chunk(10, platformTransactionManager)
       .reader(deadLetterItemReader.deadLetterKafkaItemReader())
       .writer(deadLetterItemWriter)
       .build();
