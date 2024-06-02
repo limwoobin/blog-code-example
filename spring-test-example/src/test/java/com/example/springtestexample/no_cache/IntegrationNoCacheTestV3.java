@@ -1,18 +1,18 @@
 package com.example.springtestexample.no_cache;
 
 import com.example.springtestexample.ApplicationContextInitListener;
-import com.example.springtestexample.config.MyComponent;
+import com.example.springtestexample.config.MyService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.ApplicationContext;
 
 @SpringBootTest
 public class IntegrationNoCacheTestV3 {
 
-  @MockBean
-  private MyComponent mockMyComponent;
+  @SpyBean
+  private MyService spyMyService;
 
   @Autowired
   private ApplicationContext applicationContext;
@@ -22,7 +22,7 @@ public class IntegrationNoCacheTestV3 {
 
   @Test
   void test() {
-    System.out.println("myComponent: " + mockMyComponent);
+    System.out.println("spyMyService: " + spyMyService);
 
     System.out.println("applicationContext.hashCode(): " + applicationContext.hashCode());
     System.out.println("context init Count: " + initListener.getContextInitCount());
