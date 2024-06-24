@@ -1,4 +1,4 @@
-package com.example.springeventexample.domain;
+package com.example.springeventexample.user.domain;
 
 import org.springframework.data.repository.Repository;
 

@@ -1,6 +1,7 @@
 package com.example.springeventexample.controller;
 
-import com.example.springeventexample.service.UserService;
+import com.example.springeventexample.user.domain.UserDto;
+import com.example.springeventexample.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +21,9 @@ public class UserController {
     return new ResponseEntity<>("HI", HttpStatus.OK);
   }
 
-  @PostMapping(value = "/{name}")
-  public ResponseEntity<Void> save(@PathVariable String name) {
-    userService.save(name);
-    return new ResponseEntity<>(HttpStatus.OK);
+  @PostMapping
+  public ResponseEntity<String> save(@RequestBody UserDto userDto) {
+    userService.save(userDto);
+    return new ResponseEntity<>("OK", HttpStatus.OK);
   }
 }

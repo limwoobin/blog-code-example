@@ -1,4 +1,4 @@
-package com.example.springeventexample.domain;
+package com.example.springeventexample.user.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,12 +18,14 @@ public class User {
   private Long id;
 
   private String name;
+  private String email;
 
-  private User(String name) {
+  private User(String name, String email) {
     this.name = name;
+    this.email = email;
   }
 
-  public static User from(String name) {
-    return new User(name);
+  public static User of(String name, String email) {
+    return new User(name, email);
   }
 }
