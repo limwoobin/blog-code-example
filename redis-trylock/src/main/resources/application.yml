@@ -1,2 +1,2 @@
-spring:
-  redis:
+server:
+  port: 8080
