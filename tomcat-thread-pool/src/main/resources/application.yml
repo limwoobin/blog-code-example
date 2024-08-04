@@ -1,1 +1,9 @@
-spring.application.name=tomcat-thread-pool
+server:
+  tomcat:
+    max-connections: 8
+    accept-count: 10
+    threads:
+      max: 2
+logging:
+  level:
+    root: info
