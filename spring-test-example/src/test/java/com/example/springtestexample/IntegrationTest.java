@@ -1,6 +1,8 @@
 package com.example.springtestexample;
 
+import com.example.springtestexample.config.CustomFeatureRegisterer;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ContextConfiguration;
 
 import java.lang.annotation.ElementType;
@@ -12,5 +14,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @SpringBootTest
 @ContextConfiguration(classes = MyServiceTestConfig.class)
+@Import(CustomFeatureRegisterer.class)
 public @interface IntegrationTest {
 }
