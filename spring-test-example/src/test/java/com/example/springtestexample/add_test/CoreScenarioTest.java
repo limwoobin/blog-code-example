@@ -32,9 +32,4 @@ public class CoreScenarioTest {
     System.out.println(mockMyService.get());
     System.out.println(spyMyService.get());
   }
-
-  @Test
-  void test3() {
-    System.out.println("CoreScenarioTest");
-  }
 }

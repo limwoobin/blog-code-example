@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class TempService {
 
-  private final MyService myService;
+  private final MyService customMyService;
 
-  public TempService(MyService myService) {
-    this.myService = myService;
+  public TempService(MyService customMyService) {
+    this.customMyService = customMyService;
   }
 
   public String run() {
-    return myService.get();
+    return customMyService.get();
   }
 }

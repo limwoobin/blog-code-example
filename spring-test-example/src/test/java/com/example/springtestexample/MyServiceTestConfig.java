@@ -11,12 +11,12 @@ import org.springframework.context.annotation.Primary;
 public class MyServiceTestConfig {
 
   @Autowired
-  private MyService myService;
+  private MyService testMyService;
 
   @Bean
   @Primary
   public MyService testMyService() {
-    return myService;
+    return testMyService;
   }
 
   @Bean
@@ -26,6 +26,6 @@ public class MyServiceTestConfig {
 
   @Bean
   public MyService spyMyService() {
-    return Mockito.spy(myService);
+    return Mockito.spy(testMyService);
   }
 }
