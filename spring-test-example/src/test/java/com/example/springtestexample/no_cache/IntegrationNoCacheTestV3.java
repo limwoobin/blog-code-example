@@ -1,7 +1,7 @@
 package com.example.springtestexample.no_cache;
 
 import com.example.springtestexample.ApplicationContextInitListener;
-import com.example.springtestexample.config.MyService;
+import com.example.springtestexample.service.MyService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,7 +1,7 @@
 package com.example.springtestexample.cache_v2;
 
 import com.example.springtestexample.ApplicationContextInitListener;
-import com.example.springtestexample.config.MyService;
+import com.example.springtestexample.service.MyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

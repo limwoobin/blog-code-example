@@ -1,4 +1,4 @@
-package com.example.springtestexample.config;
+package com.example.springtestexample.service;
 
 import org.springframework.stereotype.Component;
 

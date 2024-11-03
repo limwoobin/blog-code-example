@@ -2,7 +2,7 @@ package com.example.springtestexample.cache;
 
 import com.example.springtestexample.ApplicationContextInitListener;
 import com.example.springtestexample.IntegrationTest;
-import com.example.springtestexample.config.MyService;
+import com.example.springtestexample.service.MyService;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.util.MockUtil;
 import org.springframework.beans.factory.annotation.Autowired;
