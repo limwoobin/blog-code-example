@@ -6,6 +6,7 @@ import com.example.springtestexample.service.MyService;
 import org.junit.jupiter.api.Test;
 import org.mockito.internal.util.MockUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,9 +18,11 @@ public class IntegrationCacheTest {
     private MyService myService;
 
     @Autowired
+    @Qualifier("mockMyService")
     private MyService mockMyService;
 
     @Autowired
+    @Qualifier("spyMyService")
     private MyService spyMyService;
 
     @Autowired
