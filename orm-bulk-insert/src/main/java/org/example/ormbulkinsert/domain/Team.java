@@ -36,11 +36,22 @@ public class Team {
   @Builder
   public Team(String name,
               TeamStatus status,
-              Location location,
-              List<Project> projects) {
+              Location location) {
     this.name = name;
     this.status = status;
     this.location = location;
-    this.projects = projects;
+  }
+
+  public void addLocation(Location location) {
+    this.location = location;
+  }
+
+  public void addProject(Project project) {
+    this.projects.add(project);
+    project.addTeam(this);
+  }
+
+  public void setId(Long id) {
+    this.id = id;
   }
 }

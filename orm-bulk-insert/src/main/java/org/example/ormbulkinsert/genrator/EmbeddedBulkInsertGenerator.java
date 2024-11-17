@@ -1,7 +1,6 @@
 package org.example.ormbulkinsert.genrator;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 
 import java.lang.reflect.Field;
@@ -10,24 +9,6 @@ import java.util.Collections;
 import java.util.List;
 
 public class EmbeddedBulkInsertGenerator implements BulkInsertGenerator {
-
-  @Override
-  public List<Field> getFields(Field field, Object entity) throws IllegalAccessException {
-    if (!field.isAnnotationPresent(Embedded.class)) {
-      return Collections.emptyList();
-    }
-
-    List<Field> columnFields = new ArrayList<>();
-    Class<?> embeddedClass = field.getType();
-    for (Field embeddedField : embeddedClass.getDeclaredFields()) {
-      embeddedField.setAccessible(true);
-      if (embeddedField.isAnnotationPresent(Column.class)) {
-        columnFields.add(embeddedField);
-      }
-    }
-
-    return columnFields;
-  }
 
   @Override
   public List<String> getColumns(Field field) {

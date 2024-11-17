@@ -7,11 +7,6 @@ import java.util.List;
 public class NoopBulkInsertGenerator implements BulkInsertGenerator {
 
   @Override
-  public List<Field> getFields(Field field, Object entity) throws IllegalAccessException {
-    return Collections.emptyList();
-  }
-
-  @Override
   public List<String> getColumns(Field field) {
     return Collections.emptyList();
   }

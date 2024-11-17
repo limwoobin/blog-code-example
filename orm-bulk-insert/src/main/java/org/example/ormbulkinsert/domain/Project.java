@@ -51,5 +51,9 @@ public class Project {
     this.status = status;
     this.team = team;
   }
+
+  public void addTeam(Team team) {
+    this.team = team;
+  }
 }
 

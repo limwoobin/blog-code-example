@@ -3,20 +3,10 @@ package org.example.ormbulkinsert.genrator;
 import jakarta.persistence.Column;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class ColumnBulkInsertGenerator implements BulkInsertGenerator {
-
-  @Override
-  public List<Field> getFields(Field field, Object entity) {
-    if (!field.isAnnotationPresent(Column.class)) {
-      return Collections.emptyList();
-    }
-
-    return Collections.singletonList(field);
-  }
 
   @Override
   public List<String> getColumns(Field field) {

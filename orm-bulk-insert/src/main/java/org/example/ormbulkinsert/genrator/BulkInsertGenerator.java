@@ -5,8 +5,6 @@ import java.util.List;
 
 public interface BulkInsertGenerator {
 
-  List<Field> getFields(Field field, Object entity) throws IllegalAccessException;
-
   List<String> getColumns(Field field);
 
   List<String> getValues(Field field, Object entity) throws IllegalAccessException;
