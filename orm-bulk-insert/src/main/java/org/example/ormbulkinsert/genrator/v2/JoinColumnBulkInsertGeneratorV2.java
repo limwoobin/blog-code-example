@@ -1,13 +1,14 @@
-package org.example.ormbulkinsert.genrator;
+package org.example.ormbulkinsert.genrator.v2;
 
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import org.example.ormbulkinsert.genrator.BulkInsertGenerator;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 
-public class JoinColumnBulkInsertGenerator implements BulkInsertGenerator {
+public class JoinColumnBulkInsertGeneratorV2 implements BulkInsertGeneratorV2 {
 
   @Override
   public List<String> getColumns(Field field) {

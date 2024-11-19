@@ -1,15 +1,15 @@
-package org.example.ormbulkinsert.genrator;
+package org.example.ormbulkinsert.genrator.v2;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
+import org.example.ormbulkinsert.genrator.BulkInsertGenerator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class EmbeddedBulkInsertGenerator implements BulkInsertGenerator {
+public class EmbeddedBulkInsertGeneratorV2 implements BulkInsertGeneratorV2 {
 
   @Override
   public List<String> getColumns(Field field) {
