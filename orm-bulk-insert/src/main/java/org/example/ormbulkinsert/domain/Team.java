@@ -11,7 +11,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "teams")
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Team {
@@ -49,6 +48,11 @@ public class Team {
   public void addProject(Project project) {
     this.projects.add(project);
     project.addTeam(this);
+  }
+
+  public void addProjects(List<Project> projects) {
+    this.projects.addAll(projects);
+    projects.forEach(project -> project.addTeam(this));
   }
 
   public void setId(Long id) {

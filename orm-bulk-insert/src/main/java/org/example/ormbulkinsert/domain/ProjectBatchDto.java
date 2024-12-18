@@ -11,11 +11,11 @@ public class ProjectBatchDto {
   @Transient
   private Long id;
   private String name;
-  private String projectCode;
+  private String project_code;
   private int level;
   private String description;
   private ProjectStatus status;
-  private Long teamId;
+  private Long team_id;
 
   @Builder
   public ProjectBatchDto(String name,
@@ -25,11 +25,11 @@ public class ProjectBatchDto {
                          ProjectStatus status,
                          Long teamId) {
     this.name = name;
-    this.projectCode = projectCode;
+    this.project_code = projectCode;
     this.level = level;
     this.description = description;
     this.status = status;
-    this.teamId = teamId;
+    this.team_id = teamId;
   }
 
   public static ProjectBatchDto from(Project project) {

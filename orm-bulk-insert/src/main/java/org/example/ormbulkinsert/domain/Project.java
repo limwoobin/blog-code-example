@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "projects")
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Project {

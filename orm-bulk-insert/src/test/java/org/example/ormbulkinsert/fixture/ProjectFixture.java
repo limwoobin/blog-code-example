@@ -48,4 +48,13 @@ public class ProjectFixture {
       .status(ProjectStatus.DONE)
       .build();
   }
+
+  public static Project PROJECT_6() {
+    return Project.builder()
+      .name("project6")
+      .projectCode("code-2004")
+      .level(5)
+      .status(ProjectStatus.DONE)
+      .build();
+  }
 }

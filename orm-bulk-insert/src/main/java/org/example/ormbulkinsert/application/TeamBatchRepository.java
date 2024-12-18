@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Field;
@@ -15,15 +15,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class TeamBatchService {
+@Repository
+public class TeamBatchRepository {
   private final JdbcTemplate jdbcTemplate;
   private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
   private static final String LAST_INSERT_ID_SQL = "SELECT LAST_INSERT_ID()";
 
-  public TeamBatchService(JdbcTemplate jdbcTemplate,
-                          NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+  public TeamBatchRepository(JdbcTemplate jdbcTemplate,
+                             NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;
     this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
   }

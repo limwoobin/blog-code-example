@@ -5,16 +5,9 @@ import org.example.ormbulkinsert.domain.TeamStatus;
 
 public class TeamFixture {
 
-  public static Team TEAM_1() {
+  public static Team TEAM(String name) {
     return Team.builder()
-      .name("team")
-      .status(TeamStatus.ACTIVE)
-      .build();
-  }
-
-  public static Team TEAM_2() {
-    return Team.builder()
-      .name("team-2")
+      .name(name)
       .status(TeamStatus.ACTIVE)
       .build();
   }

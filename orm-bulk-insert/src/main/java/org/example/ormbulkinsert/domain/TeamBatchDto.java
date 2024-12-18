@@ -62,7 +62,7 @@ public class TeamBatchDto {
   }
 
   public List<ProjectBatchDto> getProjectsWithFk() {
-    this.projects.forEach(it -> it.setTeamId(this.id));
+    this.projects.forEach(it -> it.setTeam_id(this.id));
     return this.projects;
   }
 }
